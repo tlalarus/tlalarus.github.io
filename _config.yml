@@ -1,1 +1,27 @@
 theme: jekyll-theme-dinky
+
+# MyData
+owner:
+  name : MinKyung Sim
+  #avatar : 
+  email : iamsimmk@gmail.com
+
+paginate : 10
+
+language : 'en-uk'
+
+url : https://tlalarus.github.io
+# For Google Search console sitemap.xml
+baserurl : /
+
+# Website info
+title: Development Training
+
+#description:
+
+procustion_url : https://tlalarus.github.io/
+
+source_url : https://github.com/tlalarus/tlalarus.github.io/
+
+# Permalinks
+permalink : /:title
