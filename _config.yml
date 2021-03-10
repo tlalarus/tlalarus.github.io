@@ -1,27 +1,48 @@
-theme: jekyll-theme-dinky
 
-# MyData
-owner:
-  name : MinKyung Sim
-  #avatar : 
-  email : iamsimmk@gmail.com
+title: My Practice #Your awesome title
+email: iamsimmk@gmail.com
+description: > # this means to ignore newlines until "baseurl"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
 
-paginate : 10
+baseurl: /# the subpath of the site
+url: https://tlalarus.github.io/
+#http://starry99.github.io/catbook # the base hostname & protocol for your site
 
-language : 'en-uk'
+permalink: /:year-:month/:title
+timezone:
 
-url : https://tlalarus.github.io
-# For Google Search console sitemap.xml
-baserurl : /
+favicon: /assets/img/favicon.ico
 
-# Website info
-title: Development Training
+google_analytics: #UA—XXXXXXXX-X
+disqus_shortname: #disqus shortname
 
-#description:
+user:
+  name: MinKyung Sim
+  pic: /assets/img/cat.jpg
+  picAlt: "catbook"
+  job: computer-vision developer
+  aboutme: true # comment this out if you don't need the 'about' page.
 
-procustion_url : https://tlalarus.github.io/
+exclude:
+  - README.md
+  - LICENSE
+  - github
 
-source_url : https://github.com/tlalarus/tlalarus.github.io/
+defaults:
+  - scope:
+      path: "_posts"
+      type: posts
+    values:
+      layout: post
+      comment: true   
 
-# Permalinks
-permalink : /:title
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+markdown: kramdown 
+
+# Filtering Content
+show_drafts: null
+limit_posts: 0
+future:      false
+unpublished: false
