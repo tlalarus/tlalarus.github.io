@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>My Practice</title>
+  <title>unique_ptr | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/categories/travel">
+  <link rel="canonical" href="http://localhost:4000/2021-03/buildErr">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -115,31 +115,41 @@
     
     <main class="main">
 
-    <!-- each category page -->
+    <div class="post">
+  <div>
+    
+    <p class="post_title">unique_ptr</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">Mar 11, 2021</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/dev">dev</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p>아래와 같은 빌드에러 발생</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c++/7.5.0/bits/unique_ptr.h:821:30 error:invalid new-expression of abstract class type
+{return unique_ptr&lt;_Tp&gt;(new_Tp(std::forward&lt;_Args&gt;(__args)...));}
+</code></pre></div></div>
 
-<div class="archive">
-  <p class="archive_type">travel</p>
-  <ul>
-    
-    
-    <li>
-        <time class='archive_date' datetime='2018-07-04T00:00:00+09:00'>
-          Jul 4, 2018
-        </time>
-        <div class='archive_title'>
-          <a href='/2018-07/t1'>
-            Some articles are just so long they deserve a really long title to see if things will break well
-          </a>
-        </div>
-      </li>
-    
+  </div>
+
+
+  
+  <div class="post_comment">
+
     
 
-  </ul>
+  </div>
+  
+
 </div>
-
-<!-- main page -->
-
 
     </main>
 

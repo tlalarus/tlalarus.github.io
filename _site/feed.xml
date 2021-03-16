@@ -4,19 +4,35 @@
     <title>My Practice</title>
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 </description>
-    <link>http://localhost:4000//</link>
-    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 10 Mar 2021 23:54:36 +0900</pubDate>
-    <lastBuildDate>Wed, 10 Mar 2021 23:54:36 +0900</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 11 Mar 2021 00:20:08 +0900</pubDate>
+    <lastBuildDate>Thu, 11 Mar 2021 00:20:08 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>unique_ptr</title>
+        <description>&lt;p&gt;아래와 같은 빌드에러 발생&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c++/7.5.0/bits/unique_ptr.h:821:30 error:invalid new-expression of abstract class type
+{return unique_ptr&amp;lt;_Tp&amp;gt;(new_Tp(std::forward&amp;lt;_Args&amp;gt;(__args)...));}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Thu, 11 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021-03/buildErr</link>
+        <guid isPermaLink="true">http://localhost:4000/2021-03/buildErr</guid>
+        
+        
+        <category>dev</category>
+        
+      </item>
     
       <item>
         <title>Some articles are just so long they deserve a really long title to see if things will break well</title>
         <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.&lt;/p&gt;
 </description>
         <pubDate>Wed, 04 Jul 2018 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2018-07/t1</link>
-        <guid isPermaLink="true">http://localhost:4000//2018-07/t1</guid>
+        <link>http://localhost:4000/2018-07/t1</link>
+        <guid isPermaLink="true">http://localhost:4000/2018-07/t1</guid>
         
         
         <category>travel</category>
@@ -69,8 +85,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Wed, 01 Nov 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2017-11/s2</link>
-        <guid isPermaLink="true">http://localhost:4000//2017-11/s2</guid>
+        <link>http://localhost:4000/2017-11/s2</link>
+        <guid isPermaLink="true">http://localhost:4000/2017-11/s2</guid>
         
         
         <category>writing</category>
@@ -96,8 +112,8 @@
 
 </description>
         <pubDate>Tue, 24 Oct 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2017-10/welcome</link>
-        <guid isPermaLink="true">http://localhost:4000//2017-10/welcome</guid>
+        <link>http://localhost:4000/2017-10/welcome</link>
+        <guid isPermaLink="true">http://localhost:4000/2017-10/welcome</guid>
         
         
         <category>dev</category>
