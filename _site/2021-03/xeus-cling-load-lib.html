@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>Welcome to Jekyll | My Practice</title>
+  <title>xeus cling 라이브러리 설정 | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2017-10/welcome">
+  <link rel="canonical" href="http://localhost:4000/2021-03/xeus-cling-load-lib">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -54,23 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (2)</a>
-        </li>
-      </ul>
-      
-      
-      <ul class="nav_list">
-        <li class="nav_item">
-          <a href="/categories/writing" id="aa">writing
-            (1)</a>
-        </li>
-      </ul>
-      
-      
-      <ul class="nav_list">
-        <li class="nav_item">
-          <a href="/categories/travel" id="aa">travel
-            (1)</a>
+            (3)</a>
         </li>
       </ul>
       
@@ -94,19 +78,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (2)</a>
-    </li>
-    
-    
-
-    <li class="nav_item">
-      <a href="/categories/writing" id="aa">writing (1)</a>
-    </li>
-    
-    
-
-    <li class="nav_item">
-      <a href="/categories/travel" id="aa">travel (1)</a>
+      <a href="/categories/dev" id="aa">dev (3)</a>
     </li>
     
   </ul>
@@ -118,12 +90,12 @@
     <div class="post">
   <div>
     
-    <p class="post_title">Welcome to Jekyll</p>
+    <p class="post_title">xeus cling 라이브러리 설정</p>
     
   </div>
   <div class="post_data">
     
-    <span class="post_date">Oct 24, 2017</span>
+    <span class="post_date">Mar 24, 2021</span>
     
     
     <span class="post_categories">
@@ -133,21 +105,17 @@
     
   </div>
   <div class="post_content">
-    <p>You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+    <p>xeus cling 환경은 커널과 통하는 프로토콜을 바꿔준다. 그래서 cpp를 python처럼 주피터 노트북에서 interactive한 방식으로 사용할 수 있다. <br />
+xeus는 주피터 커널 프로토콜을 cpp로 구현한 라이브러리라고 한다. 여하튼 나는 아나콘다에 xeus cling 환경을 세팅해서 개발하고 있는데 간단한 코드 테스트할 때 매우 유용한 것 같다. <br />
+다만, cpp는 변수나 함수 선언 위치나 순서를 지켜줘야 하기 때문에 아무래도 다른 점이 있긴 하다.
+python에서 라이브러리 import 할때는 셀 하나에 여러 모듈을 import 하곤 했어서 cpp에서도 한 셀에 include랑 load_lib을 다 때려넣고 실행했더니 커널이 죽는 현상이 있었다.</p>
 
-<p>To add new posts, simply add a file in the <code class="highlighter-rouge">_posts</code> directory that follows the convention <code class="highlighter-rouge">YYYY-MM-DD-name-of-post.md</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<p><img src="https://user-images.githubusercontent.com/78094857/112333756-35f89f00-8cfe-11eb-8a88-afddab84dd52.png" alt="" />
+이런 에러가 나거나 커널이 죽어버렸다.</p>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span>
-</code></pre></div></div>
-
-<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://github.com/jekyll/jekyll-help">Jekyll’s dedicated Help repository</a>.</p>
-
+<p>코드 한줄을 한셀에 작성하니 문제가 해결 되었다. <br />
+<img src="https://user-images.githubusercontent.com/78094857/112333744-33964500-8cfe-11eb-94fc-a59c26c5f281.png" alt="" />
+많은 라이브러리들을 일일이 쓰기엔 많아서 “xeus-cling-include.h” 헤더파일을 하나 생성하고 이 파일에서 필요한 라이브러리를 불러오도록 했다.</p>
 
   </div>
 
