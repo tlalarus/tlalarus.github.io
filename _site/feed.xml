@@ -6,9 +6,62 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 25 Mar 2021 00:18:40 +0900</pubDate>
-    <lastBuildDate>Thu, 25 Mar 2021 00:18:40 +0900</lastBuildDate>
+    <pubDate>Mon, 12 Apr 2021 21:12:27 +0900</pubDate>
+    <lastBuildDate>Mon, 12 Apr 2021 21:12:27 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>cv::Mat format type</title>
+        <description>&lt;h2 id=&quot;cvmat-의-자료형&quot;&gt;cv::Mat 의 자료형&lt;/h2&gt;
+&lt;p&gt;opencv의 Mat 은 아래와 같은 자료형을 지원한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;CV_8U : 8-bit unsigned integer: uchar ( 0…255 )&lt;/li&gt;
+  &lt;li&gt;CV_8S : 8-bit signed integer: schar ( -128… 127 )&lt;/li&gt;
+  &lt;li&gt;CV_16U : 16-bit unsigned integer: ushort ( 0…65535 )&lt;/li&gt;
+  &lt;li&gt;CV_16S : 16-bit signed integer: shor ( -32768…32767 )&lt;/li&gt;
+  &lt;li&gt;CV_32S : 32-bit signed integer: int ( -2147483648…2147483647 )&lt;/li&gt;
+  &lt;li&gt;CV_32F : 32-bt floating-point number: float ( -FLT_MAX…FLT_MAX, INF, NAN )&lt;/li&gt;
+  &lt;li&gt;CV_64F : 64-bit floating-point number: double ( -DBL_MAX…DBL_MAX, INF, NAN )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;나는 이미지를 다루기 때문에 보통 CV_8U 형을 많이 사용하지만 행렬연산 목적으로 Mat을 사용할 때는 범위가 더 넓은 자료형을 쓰는 것이 좋을 것 같다. 또한, opencv의 영상처리 알고리즘들은 가끔 입력가능한 format type이 정해져 있기 때문에 사용하고자 하는 opencv 함수가 어떤 format을 지원하는지 확인하면서 사용하는 것이 좋다.&lt;/p&gt;
+
+&lt;h2 id=&quot;format-type-관련-에러&quot;&gt;format type 관련 에러&lt;/h2&gt;
+&lt;p&gt;최근에 코드를 짜다가 Mat의 포맷관련한 문제를 몇가지 겪었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;unsupported-format&quot;&gt;unsupported format&lt;/h3&gt;
+&lt;p&gt;cv::filter2d 함수에서 아래와 같은 예외가 발생했다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terminate called after throwing an instance of 'cv::Exception'
+  what():  OpenCV(3.4.6) /opt/opencv/opencv-3.4.6/modules/imgproc/src/filter.simd.hpp:3172: error: (-213:The function/feature is not implemented) Unsupported combination of source format (=4), and destination format (=4) in function 'getLinearFilter'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;확인해보니 filter2d 함수는 CV_8U, CV_16U, CV_32F 자료형인 입력만 지원한다고 한다. &lt;del&gt;opencv 공식문서에서 확인한 내용은 아니고 구글링으로 확인한 카더라임&lt;/del&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;print-actual-mat-element&quot;&gt;Print actual Mat element&lt;/h3&gt;
+&lt;p&gt;코드를 짜다보면 내가 짠 코드가 맞는 것인지 결과 Mat을 통해 확인하고 싶을 때가 있다. 나는 직접 픽셀값을 출력해서 확인하는 편인데 &lt;code class=&quot;highlighter-rouge&quot;&gt;std::cout&lt;/code&gt; 으로 출력하면 실제값과 다른 엉뚱한 숫자가 출력되는 것을 확인하였다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;case CV_8U:
+{
+    printf(&quot;%*u &quot;, 3, mat.at&amp;lt;uchar&amp;gt;(r, c));
+    break;
+}
+case CV_32S:
+{
+    printf(&quot;%*d &quot;, 6, mat.at&amp;lt;int&amp;gt;(r, c));
+    break;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;위처럼 포맷마다 적당한 출력형식을 정해주어야 하는 것 같다.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 10 Apr 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021-04/opencv-mat-format-type</link>
+        <guid isPermaLink="true">http://localhost:4000/2021-04/opencv-mat-format-type</guid>
+        
+        
+        <category>dev</category>
+        
+      </item>
     
       <item>
         <title>xeus cling 라이브러리 설정</title>

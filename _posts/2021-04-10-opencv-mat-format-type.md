@@ -1,5 +1,5 @@
 ---
-title: cv::Mat format type
+title: cv Mat format type
 categories: [dev]
 comments: true
 ---
