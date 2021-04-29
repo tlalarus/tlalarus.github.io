@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 20 Apr 2021 11:16:47 +0900</pubDate>
-    <lastBuildDate>Tue, 20 Apr 2021 11:16:47 +0900</lastBuildDate>
+    <pubDate>Fri, 30 Apr 2021 01:15:52 +0900</pubDate>
+    <lastBuildDate>Fri, 30 Apr 2021 01:15:52 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -58,6 +58,12 @@ n_, m_은 &lt;code class=&quot;highlighter-rouge&quot;&gt;n', m'&lt;/code&gt; �
 세번째 for문 안의 시간복잡도는 6n 이므로
 n * (2n-2) * 6n = 13n^3-13n^2 이다.
 Big O 로 표기하면 O(n^3) 이 된다. 최적화가 필요할 듯 싶다.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;2021-04-30 변경사항 기록&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;알고리즘을 내용적으로 분석해보니 쓸데없이 Permutation을 사용하고 있었다. 위 코드에서 n_을 Permutation이 아닌 Combination으로 변경했다. &lt;br /&gt;
+속도가 많이 줄어든 것을 확인함. 1초 넘게 걸리던게 100ms 안에 다 끝나버렸다.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 20 Apr 2021 00:00:00 +0900</pubDate>
