@@ -6,9 +6,72 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 30 Apr 2021 01:15:52 +0900</pubDate>
-    <lastBuildDate>Fri, 30 Apr 2021 01:15:52 +0900</lastBuildDate>
+    <pubDate>Tue, 11 May 2021 20:20:00 +0900</pubDate>
+    <lastBuildDate>Tue, 11 May 2021 20:20:00 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>docker 컨테이너에서 usb 카메라 SDK 설치</title>
+        <description>&lt;p&gt;새로운 프로젝트에서 사용하는 Jetson 보드에 카메라 동작 기능을 구현하고 있다. &lt;br /&gt;
+아래의 이유로 docker 이미지를 생성하기로 했다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;보드에서 직접 빌드하는 방식은 느려서 불편하다.&lt;/li&gt;
+  &lt;li&gt;개발환경을 구체적으로 명시하고 싶어서.&lt;/li&gt;
+  &lt;li&gt;내 PC에서 개발하고 있는 다른 프로젝트들과 개발환경이 꼬일까봐 독립된 환경을 구성하고 싶어서.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이제 막 docker를 공부하고 있어서 진행이 더디지만 Dockerfile에 카메라 제조사의 홈페이지로부터 SDK 패키지를 다운로드 받는 것 까지는 성공했다.
+SDK의 install 을 실행하니 설치 도중&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;cp: cannot create regular file 'etc/udev/rules.d/': No such file or directory&lt;/code&gt; 메세지가 나오면서 종료되었다.
+젯슨 보드에 직접 설치하는건 잘 되는데… 컨테이너에서 usb 장치에 접근하기 위한 어떤 모듈이 존재하지 않는 상태가 원인인 것 같은 느낌이 든다.&lt;/p&gt;
+
+&lt;p&gt;아래는 해결방법인 듯 한 참고 페이지 &lt;br /&gt;
+https://forums.balena.io/t/docker-container-cannot-access-dynamically-plugged-usb-devices/4277 &lt;br /&gt;
+https://www.losant.com/blog/how-to-access-serial-devices-in-docker&lt;/p&gt;
+
+&lt;p&gt;아직 시도는 안해봤지만 &lt;code class=&quot;highlighter-rouge&quot;&gt;etc/udev/rules.d&lt;/code&gt; 파일을 직접 생성해주는 방법인 것 같다. 시도해본 결과는 아래에 추가할 예정!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 11 May 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021-05/usbdevice-docker-container</link>
+        <guid isPermaLink="true">http://localhost:4000/2021-05/usbdevice-docker-container</guid>
+        
+        
+        <category>dev</category>
+        
+      </item>
+    
+      <item>
+        <title>Depth estimation 관련 용어 및 개념 정리</title>
+        <description>&lt;p&gt;싱글 영상을 이용한 depth estimation을 공부해보려고 합니다. 헷갈리는 개념들이 있어서 정리해보았습니다.&lt;/p&gt;
+
+&lt;h1 id=&quot;depth-estimation-이란&quot;&gt;Depth estimation 이란?&lt;/h1&gt;
+&lt;p&gt;Depth는 카메라에서부터 영상의 어느 (u, v) 좌표지점까지의 실제 거리를 측정하는 것과 깊은 관련이 있습니다. 우리가 흔히 말하는 이미지는 3D 포인트들이 2D로 mapping되어 depth정보가 손실됩니다.&lt;/p&gt;
+
+&lt;p&gt;2D를 3D로 &lt;em&gt;inverse&lt;/em&gt; 하고 싶다면? 이것은 2D 이미지만 가지고 scene을 복원하겠다는 의미입니다. depth estimation에 관한 많은 연구들이 이루어지고 있습니다. 많이 연구되었고 가장 성공적인 방법은 stereo vision을 이용하는 기술입니다. 그리고 deep learning을 이용한 기술도 엄청난 성능을 보이고 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;back-projection&quot;&gt;Back-projection&lt;/h2&gt;
+&lt;p&gt;Depth map과 Intrinsic parameter 및 extrinsin parameter 을 알고 있다고 가정한다면 3D 가 2D 로 변환되는 식을 역산하여 3D좌표를 구할 수 있습니다.&lt;/p&gt;
+
+&lt;h1 id=&quot;관련-개념&quot;&gt;관련 개념&lt;/h1&gt;
+&lt;h3 id=&quot;slam&quot;&gt;SLAM&lt;/h3&gt;
+
+&lt;h3 id=&quot;point-cloud&quot;&gt;Point cloud&lt;/h3&gt;
+
+&lt;h1 id=&quot;관련-keyword&quot;&gt;관련 Keyword&lt;/h1&gt;
+&lt;h3 id=&quot;orb-slam&quot;&gt;ORB-SLAM&lt;/h3&gt;
+&lt;h3 id=&quot;arcore&quot;&gt;ARCore&lt;/h3&gt;
+
+&lt;h1 id=&quot;공부할-내용&quot;&gt;공부할 내용&lt;/h1&gt;
+&lt;p&gt;https://taeyoung96.github.io/paper_review/BTS/&lt;/p&gt;
+</description>
+        <pubDate>Sat, 08 May 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2021-05/about-depth-estimation</link>
+        <guid isPermaLink="true">http://localhost:4000/2021-05/about-depth-estimation</guid>
+        
+        
+        <category>dev</category>
+        
+      </item>
     
       <item>
         <title>시간복잡도 계산하기</title>

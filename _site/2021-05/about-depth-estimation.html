@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>My Practice</title>
+  <title>Depth estimation 관련 용어 및 개념 정리 | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/aboutme">
+  <link rel="canonical" href="http://localhost:4000/2021-05/about-depth-estimation">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -87,16 +87,58 @@
     
     <main class="main">
 
-    <section class="aboutme">
-    <div class="post_content">
-        <p>
-            If you don't need 'about' page, edit the _config.yml to comment out the code.
-            <br><br>
-            <img src="https://starry99.github.io/catbook/assets/img/cat1.jpg">
-        </p>
-    </div>
-</section>
+    <div class="post">
+  <div>
+    
+    <p class="post_title">Depth estimation 관련 용어 및 개념 정리</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">May 8, 2021</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/dev">dev</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p>싱글 영상을 이용한 depth estimation을 공부해보려고 합니다. 헷갈리는 개념들이 있어서 정리해보았습니다.</p>
 
+<h1 id="depth-estimation-이란">Depth estimation 이란?</h1>
+<p>Depth는 카메라에서부터 영상의 어느 (u, v) 좌표지점까지의 실제 거리를 측정하는 것과 깊은 관련이 있습니다. 우리가 흔히 말하는 이미지는 3D 포인트들이 2D로 mapping되어 depth정보가 손실됩니다.</p>
+
+<p>2D를 3D로 <em>inverse</em> 하고 싶다면? 이것은 2D 이미지만 가지고 scene을 복원하겠다는 의미입니다. depth estimation에 관한 많은 연구들이 이루어지고 있습니다. 많이 연구되었고 가장 성공적인 방법은 stereo vision을 이용하는 기술입니다. 그리고 deep learning을 이용한 기술도 엄청난 성능을 보이고 있습니다.</p>
+
+<h2 id="back-projection">Back-projection</h2>
+<p>Depth map과 Intrinsic parameter 및 extrinsin parameter 을 알고 있다고 가정한다면 3D 가 2D 로 변환되는 식을 역산하여 3D좌표를 구할 수 있습니다.</p>
+
+<h1 id="관련-개념">관련 개념</h1>
+<h3 id="slam">SLAM</h3>
+
+<h3 id="point-cloud">Point cloud</h3>
+
+<h1 id="관련-keyword">관련 Keyword</h1>
+<h3 id="orb-slam">ORB-SLAM</h3>
+<h3 id="arcore">ARCore</h3>
+
+<h1 id="공부할-내용">공부할 내용</h1>
+<p>https://taeyoung96.github.io/paper_review/BTS/</p>
+
+  </div>
+
+
+  
+  <div class="post_comment">
+
+    
+
+  </div>
+  
+
+</div>
 
     </main>
 

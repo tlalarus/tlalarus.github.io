@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>My Practice</title>
+  <title>docker 컨테이너에서 usb 카메라 SDK 설치 | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/aboutme">
+  <link rel="canonical" href="http://localhost:4000/2021-05/usbdevice-docker-container">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -87,16 +87,55 @@
     
     <main class="main">
 
-    <section class="aboutme">
-    <div class="post_content">
-        <p>
-            If you don't need 'about' page, edit the _config.yml to comment out the code.
-            <br><br>
-            <img src="https://starry99.github.io/catbook/assets/img/cat1.jpg">
-        </p>
-    </div>
-</section>
+    <div class="post">
+  <div>
+    
+    <p class="post_title">docker 컨테이너에서 usb 카메라 SDK 설치</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">May 11, 2021</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/dev">dev</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p>새로운 프로젝트에서 사용하는 Jetson 보드에 카메라 동작 기능을 구현하고 있다. <br />
+아래의 이유로 docker 이미지를 생성하기로 했다.</p>
+<ol>
+  <li>보드에서 직접 빌드하는 방식은 느려서 불편하다.</li>
+  <li>개발환경을 구체적으로 명시하고 싶어서.</li>
+  <li>내 PC에서 개발하고 있는 다른 프로젝트들과 개발환경이 꼬일까봐 독립된 환경을 구성하고 싶어서.</li>
+</ol>
 
+<p>이제 막 docker를 공부하고 있어서 진행이 더디지만 Dockerfile에 카메라 제조사의 홈페이지로부터 SDK 패키지를 다운로드 받는 것 까지는 성공했다.
+SDK의 install 을 실행하니 설치 도중<br />
+<code class="highlighter-rouge">cp: cannot create regular file 'etc/udev/rules.d/': No such file or directory</code> 메세지가 나오면서 종료되었다.
+젯슨 보드에 직접 설치하는건 잘 되는데… 컨테이너에서 usb 장치에 접근하기 위한 어떤 모듈이 존재하지 않는 상태가 원인인 것 같은 느낌이 든다.</p>
+
+<p>아래는 해결방법인 듯 한 참고 페이지 <br />
+https://forums.balena.io/t/docker-container-cannot-access-dynamically-plugged-usb-devices/4277 <br />
+https://www.losant.com/blog/how-to-access-serial-devices-in-docker</p>
+
+<p>아직 시도는 안해봤지만 <code class="highlighter-rouge">etc/udev/rules.d</code> 파일을 직접 생성해주는 방법인 것 같다. 시도해본 결과는 아래에 추가할 예정!</p>
+
+  </div>
+
+
+  
+  <div class="post_comment">
+
+    
+
+  </div>
+  
+
+</div>
 
     </main>
 
