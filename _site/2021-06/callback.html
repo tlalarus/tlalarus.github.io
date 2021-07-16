@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>My Practice</title>
+  <title>Callback 동작 정리 | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/categories/dev">
+  <link rel="canonical" href="http://localhost:4000/2021-06/callback">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -87,135 +87,51 @@
     
     <main class="main">
 
-    <!-- each category page -->
+    <div class="post">
+  <div>
+    
+    <p class="post_title">Callback 동작 정리</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">Jun 1, 2021</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/dev">dev</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p>Callback에서 맨날 헷갈리는 개념을 Server-Client 구조에 적용해서 정리해보았습니다.</p>
 
-<div class="archive">
-  <p class="archive_type">dev</p>
-  <ul>
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-07-16T00:00:00+09:00'>
-          Jul 16, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-07/coding-guide'>
-            coding cheatsheet
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-06-01T00:00:00+09:00'>
-          Jun 1, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-06/callback'>
-            Callback 동작 정리
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-05-11T00:00:00+09:00'>
-          May 11, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-05/usbdevice-docker-container'>
-            docker 컨테이너에서 usb 카메라 SDK 설치
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-05-08T00:00:00+09:00'>
-          May 8, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-05/about-depth-estimation'>
-            Depth estimation 관련 용어 및 개념 정리
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-04-20T00:00:00+09:00'>
-          Apr 20, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-04/time-complexity-calculation'>
-            시간복잡도 계산하기
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-04-10T00:00:00+09:00'>
-          Apr 10, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-04/opencv-mat-format-type'>
-            cv Mat format type
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-03-24T00:00:00+09:00'>
-          Mar 24, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-03/xeus-cling-load-lib'>
-            xeus cling 라이브러리 설정
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-03-23T00:00:00+09:00'>
-          Mar 23, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-03/Reference'>
-            이미지 이진화 참고 논문
-          </a>
-        </div>
-      </li>
-    
-    
-    
-    <li>
-        <time class='archive_date' datetime='2021-03-11T00:00:00+09:00'>
-          Mar 11, 2021
-        </time>
-        <div class='archive_title'>
-          <a href='/2021-03/buildErr'>
-            unique_ptr
-          </a>
-        </div>
-      </li>
-    
+<h2 id="callback의-사용">Callback의 사용</h2>
+<p>Callback은 서버가 클라이언트를 호출하는 것입니다. 서버에 콜백 핸들러를 등록하면 등록해놓은 핸들러가 핸들러에 연결된 콜백함수를 호출합니다. 콜백 핸들러라는 것은 콜백함수의 형태를 정의해 놓은 것을 의미합니다. 형태를 정의해 놓아야 인자를 전달할 수 있습니다.</p>
+
+<h2 id="callback-구조-빠르게-파악하기">Callback 구조 빠르게 파악하기</h2>
+<ul>
+  <li>콜백함수의 정체는? <br />
+  콜백함수의 형태(signature) 파악하기.</li>
+  <li>콜백함수를 어디에 등록(핸들러)했나? <br />
+  콜백함수의 함수포인터를 받는곳이 어딘지 파악하기.</li>
+  <li>콜백함수 핸들러가 어디에서 호출되나? <br />
+  어떤 함수가 호출되면 내가 등록한 함수가 콜백되는지 파악하기.</li>
+</ul>
+
+  </div>
+
+
+  
+  <div class="post_comment">
+
     
 
-  </ul>
+  </div>
+  
+
 </div>
-
-<!-- main page -->
-
 
     </main>
 
