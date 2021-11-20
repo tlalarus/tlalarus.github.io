@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Nov 2021 01:21:26 +0900</pubDate>
-    <lastBuildDate>Sun, 21 Nov 2021 01:21:26 +0900</lastBuildDate>
+    <pubDate>Sun, 21 Nov 2021 01:40:33 +0900</pubDate>
+    <lastBuildDate>Sun, 21 Nov 2021 01:40:33 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -20,27 +20,27 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
   &lt;li&gt;개발에 필요한 모든 툴이 갖춰진 내 laptop(&lt;strong&gt;Client&lt;/strong&gt;)에서 코드를 작성한다.&lt;/li&gt;
   &lt;li&gt;작성한 코드를 타겟보드 환경에 맞게 cross-compile 한다.&lt;/li&gt;
   &lt;li&gt;빌드된 코드를 &lt;strong&gt;타켓보드로 전송&lt;/strong&gt; 한다.&lt;/li&gt;
-  &lt;li&gt;타겟보드(&lt;strong&gt;Server&lt;/strong&gt;)에서 빌드 결과물을 실행한다.
-    &lt;h2 id=&quot;prepare&quot;&gt;Prepare&lt;/h2&gt;
-    &lt;p&gt;서버쪽 필요한 패키지: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-server&lt;/code&gt; &lt;br /&gt;
-클라이언트쪽 필요한 패키지: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-client&lt;/code&gt; (ubuntu에는 기본적으로 설치됨)&lt;/p&gt;
-    &lt;h2 id=&quot;ssh-접속설정&quot;&gt;SSH 접속설정&lt;/h2&gt;
-    &lt;p&gt;&lt;strong&gt;Server&lt;/strong&gt; 에서 tcp 포트 22번을 허용해준다.&lt;/p&gt;
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo ufw allow 22/tcp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt; 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.&lt;/p&gt;
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PermitRootLogin no
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;h2 id=&quot;ssh-접속&quot;&gt;SSH 접속&lt;/h2&gt;
-    &lt;p&gt;먼저, 서버에서 ssh접속을 열어준다.&lt;/p&gt;
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd start
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;아래 명령어로 ssh서비스가 구동중인지 확인할 수 있다(Active 인지 확인).&lt;/p&gt;
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;서버에서 랜선이 연결된 인터페이스(&lt;code class=&quot;highlighter-rouge&quot;&gt;eth0&lt;/code&gt;)의 ip(&lt;code class=&quot;highlighter-rouge&quot;&gt;inet6&lt;/code&gt;)를 확인한다.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;타겟보드(&lt;strong&gt;Server&lt;/strong&gt;)에서 빌드 결과물을 실행한다.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&quot;prepare&quot;&gt;Prepare&lt;/h2&gt;
+&lt;p&gt;서버쪽 필요한 패키지: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-server&lt;/code&gt; &lt;br /&gt;
+클라이언트쪽 필요한 패키지: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-client&lt;/code&gt; (ubuntu에는 기본적으로 설치됨)&lt;/p&gt;
+&lt;h2 id=&quot;ssh-접속설정&quot;&gt;SSH 접속설정&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Server&lt;/strong&gt; 에서 tcp 포트 22번을 허용해준다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo ufw allow 22/tcp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt; 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PermitRootLogin no
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;ssh-접속&quot;&gt;SSH 접속&lt;/h2&gt;
+&lt;p&gt;먼저, 서버에서 ssh접속을 열어준다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;아래 명령어로 ssh서비스가 구동중인지 확인할 수 있다(Active 인지 확인).&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;서버에서 랜선이 연결된 인터페이스(&lt;code class=&quot;highlighter-rouge&quot;&gt;eth0&lt;/code&gt;)의 ip(&lt;code class=&quot;highlighter-rouge&quot;&gt;inet6&lt;/code&gt;)를 확인한다.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ifconfig
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -61,64 +61,6 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
 &lt;/ul&gt;
 </description>
         <pubDate>Sun, 21 Nov 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</guid>
-        
-        
-        <category>dev</category>
-        
-      </item>
-    
-      <item>
-        <title>ethernet 케이블로 ssh 통신하기(Ubuntu)</title>
-        <description>&lt;p&gt;Jetson nano를 타겟으로 하는 프로그램 개발 중 편하게 작업하기 위한 개발환경 구성에 대해 작성합니다. &lt;br /&gt;
-Workflow: client보드에서는 코드 작성 및 빌드(cross-compile)작업을 하고 빌드 결과물을 server보드로 전송해서 프로그램 실행.&lt;/p&gt;
-&lt;h1 id=&quot;prepare-client&quot;&gt;Prepare client&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;필요한 패키지들&lt;/strong&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd openssh inxi rsync&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;이더넷 인터페이스 이름 확인&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ inxi -i
-Network:   Device-1: Intel Wireless 8265 / 8275 driver: iwlwifi 
-           IF: wlp1s0 state: up mac: f8:63:3f:07:af:a3 
-  
-CLIENT_INTERFACE=wlp1s0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;ifplugd 실행&lt;/strong&gt; &lt;br /&gt;
-이더넷 인터페이스 이름으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd&lt;/code&gt; 실행.&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start ifplugd@wlpls0&lt;/code&gt; 또는&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start ifplugd@${CLIENT_INTERFACE}&lt;/code&gt;&lt;/p&gt;
-&lt;h1 id=&quot;prepare-server&quot;&gt;Prepare server&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;필요한 패키지들&lt;/strong&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd openssh-server inxi&lt;/code&gt; &lt;br /&gt;
-&lt;strong&gt;이더넷 인터페이스 이름 확인&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ inxi -i
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;ifplugd 실행&lt;/strong&gt; &lt;br /&gt;
-이더넷 인터페이스 이름으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd&lt;/code&gt; 실행.&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start ifplugd@wlpls0&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ssh 실행&lt;/strong&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start sshd&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;이더넷 케이블 연결&lt;/strong&gt; &lt;br /&gt;
-이더넷 케이블을 연결하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugstatus -v&lt;/code&gt; 명령으로 연결을 확인한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Server ip 확인&lt;/strong&gt; &lt;br /&gt;
-Server 이더넷 인터페이스의 IPv6 주소를 확인한다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ifconfig | grep inet6 | head -n 1 | awk '{print $2}'
-$ inxi -ix
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SERVER_USER_NAME=
-SERVER_IPV6=&quot;ip-v6 value&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Client에서 Server로 ssh 실행&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh ${SERVER_USER_NAME}@${SERVER_IPV6}%${CLIENT_INTERFACE}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Sat, 20 Nov 2021 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</link>
         <guid isPermaLink="true">http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</guid>
         

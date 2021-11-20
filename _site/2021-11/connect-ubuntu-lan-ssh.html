@@ -54,7 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (11)</a>
+            (10)</a>
         </li>
       </ul>
       
@@ -78,7 +78,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (11)</a>
+      <a href="/categories/dev" id="aa">dev (10)</a>
     </li>
     
   </ul>
@@ -113,27 +113,27 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
   <li>개발에 필요한 모든 툴이 갖춰진 내 laptop(<strong>Client</strong>)에서 코드를 작성한다.</li>
   <li>작성한 코드를 타겟보드 환경에 맞게 cross-compile 한다.</li>
   <li>빌드된 코드를 <strong>타켓보드로 전송</strong> 한다.</li>
-  <li>타겟보드(<strong>Server</strong>)에서 빌드 결과물을 실행한다.
-    <h2 id="prepare">Prepare</h2>
-    <p>서버쪽 필요한 패키지: <code class="highlighter-rouge">ssh-server</code> <br />
-클라이언트쪽 필요한 패키지: <code class="highlighter-rouge">ssh-client</code> (ubuntu에는 기본적으로 설치됨)</p>
-    <h2 id="ssh-접속설정">SSH 접속설정</h2>
-    <p><strong>Server</strong> 에서 tcp 포트 22번을 허용해준다.</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw allow 22/tcp
-</code></pre></div>    </div>
-    <p><code class="highlighter-rouge">/etc/ssh/sshd_config</code> 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PermitRootLogin no
-</code></pre></div>    </div>
-    <h2 id="ssh-접속">SSH 접속</h2>
-    <p>먼저, 서버에서 ssh접속을 열어준다.</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd start
-</code></pre></div>    </div>
-    <p>아래 명령어로 ssh서비스가 구동중인지 확인할 수 있다(Active 인지 확인).</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd status
-</code></pre></div>    </div>
-    <p>서버에서 랜선이 연결된 인터페이스(<code class="highlighter-rouge">eth0</code>)의 ip(<code class="highlighter-rouge">inet6</code>)를 확인한다.</p>
-  </li>
+  <li>타겟보드(<strong>Server</strong>)에서 빌드 결과물을 실행한다.</li>
 </ul>
+
+<h2 id="prepare">Prepare</h2>
+<p>서버쪽 필요한 패키지: <code class="highlighter-rouge">ssh-server</code> <br />
+클라이언트쪽 필요한 패키지: <code class="highlighter-rouge">ssh-client</code> (ubuntu에는 기본적으로 설치됨)</p>
+<h2 id="ssh-접속설정">SSH 접속설정</h2>
+<p><strong>Server</strong> 에서 tcp 포트 22번을 허용해준다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw allow 22/tcp
+</code></pre></div></div>
+<p><code class="highlighter-rouge">/etc/ssh/sshd_config</code> 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PermitRootLogin no
+</code></pre></div></div>
+<h2 id="ssh-접속">SSH 접속</h2>
+<p>먼저, 서버에서 ssh접속을 열어준다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd start
+</code></pre></div></div>
+<p>아래 명령어로 ssh서비스가 구동중인지 확인할 수 있다(Active 인지 확인).</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd status
+</code></pre></div></div>
+<p>서버에서 랜선이 연결된 인터페이스(<code class="highlighter-rouge">eth0</code>)의 ip(<code class="highlighter-rouge">inet6</code>)를 확인한다.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ifconfig
 </code></pre></div></div>
