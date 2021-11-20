@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>unique_ptr | My Practice</title>
+  <title>(old)ethernet 케이블로 ssh 통신하기(Ubuntu) | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2021-03/buildErr">
+  <link rel="canonical" href="http://localhost:4000/2021-11/old-connect-ubuntu-lan-ssh">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -90,12 +90,12 @@
     <div class="post">
   <div>
     
-    <p class="post_title">unique_ptr</p>
+    <p class="post_title">(old)ethernet 케이블로 ssh 통신하기(Ubuntu)</p>
     
   </div>
   <div class="post_data">
     
-    <span class="post_date">Mar 11, 2021</span>
+    <span class="post_date">Nov 20, 2021</span>
     
     
     <span class="post_categories">
@@ -105,10 +105,52 @@
     
   </div>
   <div class="post_content">
-    <p>아래와 같은 빌드에러 발생</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c++/7.5.0/bits/unique_ptr.h:821:30 error:invalid new-expression of abstract class type
-{return unique_ptr&lt;_Tp&gt;(new_Tp(std::forward&lt;_Args&gt;(__args)...));}
+    <p>Jetson nano를 타겟으로 하는 프로그램 개발 중 편하게 작업하기 위한 개발환경 구성에 대해 작성합니다. <br />
+Workflow: client보드에서는 코드 작성 및 빌드(cross-compile)작업을 하고 빌드 결과물을 server보드로 전송해서 프로그램 실행.</p>
+<h1 id="prepare-client">Prepare client</h1>
+<p><strong>필요한 패키지들</strong><br />
+<code class="highlighter-rouge">ifplugd openssh inxi rsync</code></p>
+
+<p><strong>이더넷 인터페이스 이름 확인</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ inxi -i
+Network:   Device-1: Intel Wireless 8265 / 8275 driver: iwlwifi 
+           IF: wlp1s0 state: up mac: f8:63:3f:07:af:a3 
+  
+CLIENT_INTERFACE=wlp1s0
 </code></pre></div></div>
+<p><strong>ifplugd 실행</strong> <br />
+이더넷 인터페이스 이름으로 <code class="highlighter-rouge">ifplugd</code> 실행.<br />
+<code class="highlighter-rouge">systemctl start ifplugd@wlpls0</code> 또는<br />
+<code class="highlighter-rouge">systemctl start ifplugd@${CLIENT_INTERFACE}</code></p>
+<h1 id="prepare-server">Prepare server</h1>
+<p><strong>필요한 패키지들</strong><br />
+<code class="highlighter-rouge">ifplugd openssh-server inxi</code> <br />
+<strong>이더넷 인터페이스 이름 확인</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ inxi -i
+</code></pre></div></div>
+
+<p><strong>ifplugd 실행</strong> <br />
+이더넷 인터페이스 이름으로 <code class="highlighter-rouge">ifplugd</code> 실행.<br />
+<code class="highlighter-rouge">systemctl start ifplugd@wlpls0</code></p>
+
+<p><strong>ssh 실행</strong><br />
+<code class="highlighter-rouge">systemctl start sshd</code></p>
+
+<p><strong>이더넷 케이블 연결</strong> <br />
+이더넷 케이블을 연결하고 <code class="highlighter-rouge">ifplugstatus -v</code> 명령으로 연결을 확인한다.</p>
+
+<p><strong>Server ip 확인</strong> <br />
+Server 이더넷 인터페이스의 IPv6 주소를 확인한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ifconfig | grep inet6 | head -n 1 | awk '{print $2}'
+$ inxi -ix
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SERVER_USER_NAME=
+SERVER_IPV6="ip-v6 value"
+</code></pre></div></div>
+<p><strong>Client에서 Server로 ssh 실행</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh ${SERVER_USER_NAME}@${SERVER_IPV6}%${CLIENT_INTERFACE}
+</code></pre></div></div>
+
 
   </div>
 

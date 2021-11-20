@@ -1,5 +1,5 @@
 ---
-title: ethernet 케이블로 ssh 통신하기(Ubuntu)
+title: (old)ethernet 케이블로 ssh 통신하기(Ubuntu)
 categories: [dev]
 published: false
 ---
