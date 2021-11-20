@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>unique_ptr | My Practice</title>
+  <title>Ethernet 케이블로 ssh 통신하기(Ubuntu) | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2021-03/buildErr">
+  <link rel="canonical" href="http://localhost:4000/2021-11/connect-ubuntu-lan-ssh">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -90,12 +90,12 @@
     <div class="post">
   <div>
     
-    <p class="post_title">unique_ptr</p>
+    <p class="post_title">Ethernet 케이블로 ssh 통신하기(Ubuntu)</p>
     
   </div>
   <div class="post_data">
     
-    <span class="post_date">Mar 11, 2021</span>
+    <span class="post_date">Nov 21, 2021</span>
     
     
     <span class="post_categories">
@@ -105,10 +105,53 @@
     
   </div>
   <div class="post_content">
-    <p>아래와 같은 빌드에러 발생</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c++/7.5.0/bits/unique_ptr.h:821:30 error:invalid new-expression of abstract class type
-{return unique_ptr&lt;_Tp&gt;(new_Tp(std::forward&lt;_Args&gt;(__args)...));}
+    <p>개발보드와 타겟보드 ssh통신을 통해서 좀더 편리한 개발환경 구성해보았습니다. <br />
+Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배포환경과 개발환경이 꼭 동일할 필요는 없습니다. <br />
+즉, 젯슨나노에 배포한다고 해서 젯슨나노에 에디터 설치해서 개발할 필요는 없다는 뜻입니다.</p>
+<h2 id="원하는-workflow">원하는 Workflow</h2>
+<ul>
+  <li>개발에 필요한 모든 툴이 갖춰진 내 laptop(<strong>Client</strong>)에서 코드를 작성한다.</li>
+  <li>작성한 코드를 타겟보드 환경에 맞게 cross-compile 한다.</li>
+  <li>빌드된 코드를 <strong>타켓보드로 전송</strong> 한다.</li>
+  <li>타겟보드(<strong>Server</strong>)에서 빌드 결과물을 실행한다.
+    <h2 id="prepare">Prepare</h2>
+    <p>서버쪽 필요한 패키지: <code class="highlighter-rouge">ssh-server</code> <br />
+클라이언트쪽 필요한 패키지: <code class="highlighter-rouge">ssh-client</code> (ubuntu에는 기본적으로 설치됨)</p>
+    <h2 id="ssh-접속설정">SSH 접속설정</h2>
+    <p><strong>Server</strong> 에서 tcp 포트 22번을 허용해준다.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw allow 22/tcp
+</code></pre></div>    </div>
+    <p><code class="highlighter-rouge">/etc/ssh/sshd_config</code> 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PermitRootLogin no
+</code></pre></div>    </div>
+    <h2 id="ssh-접속">SSH 접속</h2>
+    <p>먼저, 서버에서 ssh접속을 열어준다.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd start
+</code></pre></div>    </div>
+    <p>아래 명령어로 ssh서비스가 구동중인지 확인할 수 있다(Active 인지 확인).</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd status
+</code></pre></div>    </div>
+    <p>서버에서 랜선이 연결된 인터페이스(<code class="highlighter-rouge">eth0</code>)의 ip(<code class="highlighter-rouge">inet6</code>)를 확인한다.</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ifconfig
 </code></pre></div></div>
+<p>클라이언트에서 ssh 접속을 시도한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh [USERNAME]@[IPADDRESS]
+</code></pre></div></div>
+<h2 id="파일-동기화rsync">파일 동기화(rsync)</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -azvh source_dir destination_dir 
+</code></pre></div></div>
+<ul>
+  <li>-az : 압축한 데이터를 보낸다.(압축하지 않고 보낼시 권한정보가 보존되지 않을 수 있다.)</li>
+  <li>-h : human-readable.</li>
+  <li>-v : 자세한 정보를 출력한다.</li>
+  <li>source_dir 에 slash가 붙으면 source_dir의 내용물만 전송되므로 주의할 것.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -azvh src_dir [USERNAME]@[IPADDRESS]:/home/[USERNAME]/
+</code></pre></div>    </div>
+  </li>
+</ul>
 
   </div>
 

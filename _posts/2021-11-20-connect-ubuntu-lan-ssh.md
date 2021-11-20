@@ -1,7 +1,7 @@
 ---
 title: ethernet 케이블로 ssh 통신하기(Ubuntu)
 categories: [dev]
-comments: true
+published: false
 ---
 
 Jetson nano를 타겟으로 하는 프로그램 개발 중 편하게 작업하기 위한 개발환경 구성에 대해 작성합니다.   
@@ -15,8 +15,9 @@ __이더넷 인터페이스 이름 확인__
 $ inxi -i
 Network:   Device-1: Intel Wireless 8265 / 8275 driver: iwlwifi 
            IF: wlp1s0 state: up mac: f8:63:3f:07:af:a3 
+  
+CLIENT_INTERFACE=wlp1s0
 ```
-```CLIENT_INTERFACE=wlp1s0```   
 __ifplugd 실행__   
 이더넷 인터페이스 이름으로 ```ifplugd``` 실행.   
 ```systemctl start ifplugd@wlpls0``` 또는   
