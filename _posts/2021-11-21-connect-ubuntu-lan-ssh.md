@@ -2,6 +2,7 @@
 title: Ethernet 케이블로 ssh 통신하기(Ubuntu)
 categories: [dev]
 comments: true
+published: true
 ---
 개발보드와 타겟보드 ssh통신을 통해서 좀더 편리한 개발환경 구성해보았습니다.   
 Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배포환경과 개발환경이 꼭 동일할 필요는 없습니다.   
