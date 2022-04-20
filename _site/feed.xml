@@ -6,9 +6,52 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 22 Nov 2021 08:40:25 +0900</pubDate>
-    <lastBuildDate>Mon, 22 Nov 2021 08:40:25 +0900</lastBuildDate>
+    <pubDate>Sun, 20 Mar 2022 19:48:03 +0900</pubDate>
+    <lastBuildDate>Sun, 20 Mar 2022 19:48:03 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Pandas parquet로 데이터 빨리 읽기</title>
+        <description>&lt;p&gt;머신러닝에서 데이터를 다룰 때, 엑셀 호환성때문에 &lt;code class=&quot;highlighter-rouge&quot;&gt;.csv&lt;/code&gt;를 많이 사용하고 있다. 약 3GB 크기의 csv 파일을 pandas로 불러오는데 &lt;code class=&quot;highlighter-rouge&quot;&gt;pd.read_csv()&lt;/code&gt; 수행 중 실행이 종료되는 문제가 발생했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;read_csv-default로--실행&quot;&gt;read_csv() default로  실행&lt;/h1&gt;
+&lt;p&gt;일반적으로 데이터 column마다 다른 자료형을 사용한다. 별도의 옵션을 주지 않는 한 Pandas &lt;code class=&quot;highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;는 데이터 column의 자료형을 추론하게 된다. 이 추론 과정은 생각보다 오래 걸린다(체감상 11column 1GB 데이터를 읽는데 1분걸리는듯..). 시간과 별개로 수행중 갑자기 종료되는 것이 문제라고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;1GB보다 작은 데이터 로드시 정상적으로 동작하는 걸로 보아 데이터 용량이 클수록 RAM을 많이 사용하는 것과 관련된 문제로 파악된다. pandas read_csv 를 구글링 해보면 수행시간을 단축하기 위한 옵션 사용법에 관한 글을 많이 찾아볼 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;usecols-dtype-converters-옵션-지정&quot;&gt;usecols, dtype, converters 옵션 지정&lt;/h1&gt;
+&lt;p&gt;Pandas가 데이터형을 추론하는 시간을 줄이기 위해 &lt;a href=&quot;https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;&lt;/a&gt;의 옵션을 사용해보았다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;usecols&lt;/code&gt; : 전체 column 중 특정 column만 로드할 수 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dtype&lt;/code&gt; : column의 데이터형을 직접 지정한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;converters&lt;/code&gt; : 특정 column에 대해 지정한 함수를 사용해서 변환작업을 수행한다(이상치 처리시 사용하면 편리).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;사용해본 결과, warning 메세지는 줄어들었지만 여전히 종료되는 문제가 간헐적으로 발생했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;parquet&quot;&gt;Parquet&lt;/h1&gt;
+&lt;p&gt;Parquet 형식은 &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%82%B4%ED%94%BC_(%EC%95%95%EC%B6%95)&quot;&gt;Snappy&lt;/a&gt;라는 압축 방식을 사용하는데 이 방식은 구글에서 개발한 대용량 처리에 적합한 압축방식이라고 한다. 압축률 보다는 속도에 초점을 맞춘 방식인 것 같다.&lt;/p&gt;
+&lt;h2 id=&quot;dependencies&quot;&gt;dependencies&lt;/h2&gt;
+&lt;p&gt;파이썬에서 parquet을 사용하기 위해서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;libsnappy-dev fastparquet pyarrow&lt;/code&gt; 패키지가 설치되어 있어야 한다.&lt;/p&gt;
+&lt;h2 id=&quot;사용법&quot;&gt;사용법&lt;/h2&gt;
+&lt;p&gt;판다스에서도 parquet에 대한 IO를 지원하고 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.DataFrame.to_parquet.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pandas.DataFrame.to_parquet&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.read_parquet.html#pandas.read_parquet&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pandas.read_parquet&lt;/code&gt;&lt;/a&gt;
+    &lt;h2 id=&quot;using-c&quot;&gt;Using C++&lt;/h2&gt;
+    &lt;p&gt;나는 데이터 생성 프로그램을 c++로 작성하고 있어서 c++로 parquet형식을 저장하는 방법에 대해서도 찾아보았다. Apache에서 parquet IO를 위해 제공하는 &lt;a href=&quot;https://github.com/apache/parquet-cpp&quot;&gt;parquet-cpp&lt;/a&gt;를 사용해보기로 했다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 20 Mar 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2022-03/pandas-read-csv</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03/pandas-read-csv</guid>
+        
+        
+        <category>dev</category>
+        
+      </item>
     
       <item>
         <title>Ethernet 케이블로 ssh 통신하기(Ubuntu)</title>
@@ -63,64 +106,6 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
         <pubDate>Sun, 21 Nov 2021 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</link>
         <guid isPermaLink="true">http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</guid>
-        
-        
-        <category>dev</category>
-        
-      </item>
-    
-      <item>
-        <title>(old)ethernet 케이블로 ssh 통신하기(Ubuntu)</title>
-        <description>&lt;p&gt;Jetson nano를 타겟으로 하는 프로그램 개발 중 편하게 작업하기 위한 개발환경 구성에 대해 작성합니다. &lt;br /&gt;
-Workflow: client보드에서는 코드 작성 및 빌드(cross-compile)작업을 하고 빌드 결과물을 server보드로 전송해서 프로그램 실행.&lt;/p&gt;
-&lt;h1 id=&quot;prepare-client&quot;&gt;Prepare client&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;필요한 패키지들&lt;/strong&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd openssh inxi rsync&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;이더넷 인터페이스 이름 확인&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ inxi -i
-Network:   Device-1: Intel Wireless 8265 / 8275 driver: iwlwifi 
-           IF: wlp1s0 state: up mac: f8:63:3f:07:af:a3 
-  
-CLIENT_INTERFACE=wlp1s0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;ifplugd 실행&lt;/strong&gt; &lt;br /&gt;
-이더넷 인터페이스 이름으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd&lt;/code&gt; 실행.&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start ifplugd@wlpls0&lt;/code&gt; 또는&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start ifplugd@${CLIENT_INTERFACE}&lt;/code&gt;&lt;/p&gt;
-&lt;h1 id=&quot;prepare-server&quot;&gt;Prepare server&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;필요한 패키지들&lt;/strong&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd openssh-server inxi&lt;/code&gt; &lt;br /&gt;
-&lt;strong&gt;이더넷 인터페이스 이름 확인&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ inxi -i
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;ifplugd 실행&lt;/strong&gt; &lt;br /&gt;
-이더넷 인터페이스 이름으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugd&lt;/code&gt; 실행.&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start ifplugd@wlpls0&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ssh 실행&lt;/strong&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl start sshd&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;이더넷 케이블 연결&lt;/strong&gt; &lt;br /&gt;
-이더넷 케이블을 연결하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;ifplugstatus -v&lt;/code&gt; 명령으로 연결을 확인한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Server ip 확인&lt;/strong&gt; &lt;br /&gt;
-Server 이더넷 인터페이스의 IPv6 주소를 확인한다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ifconfig | grep inet6 | head -n 1 | awk '{print $2}'
-$ inxi -ix
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SERVER_USER_NAME=
-SERVER_IPV6=&quot;ip-v6 value&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Client에서 Server로 ssh 실행&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh ${SERVER_USER_NAME}@${SERVER_IPV6}%${CLIENT_INTERFACE}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Sat, 20 Nov 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-11/old-connect-ubuntu-lan-ssh</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-11/old-connect-ubuntu-lan-ssh</guid>
         
         
         <category>dev</category>
