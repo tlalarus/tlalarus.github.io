@@ -24,7 +24,8 @@ Parquet 형식은 [Snappy](https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%82%B4%ED%9
 ## 사용법
 판다스에서도 parquet에 대한 IO를 지원하고 있다.   
 * [```pandas.DataFrame.to_parquet```](https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.DataFrame.to_parquet.html)
-* [```pandas.read_parquet```](https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.read_parquet.html#pandas.read_parquet)
+* [```pandas.read_parquet```](https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.read_parquet.html#pandas.read_parquet)   
+
 ## Using C++
 나는 데이터 생성 프로그램을 c++로 작성하고 있어서 c++로 parquet형식을 저장하는 방법에 대해서도 찾아보았다. Apache에서 parquet IO를 위해 제공하는 [parquet-cpp](https://github.com/apache/parquet-cpp)를 사용해보기로 했다.
 
