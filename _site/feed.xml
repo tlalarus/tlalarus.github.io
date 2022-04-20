@@ -6,9 +6,166 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 20 Mar 2022 19:48:03 +0900</pubDate>
-    <lastBuildDate>Sun, 20 Mar 2022 19:48:03 +0900</lastBuildDate>
+    <pubDate>Wed, 20 Apr 2022 22:24:25 +0900</pubDate>
+    <lastBuildDate>Wed, 20 Apr 2022 22:24:25 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>원격서버의 컨테이너에서 Vscode로 개발하기</title>
+        <description>&lt;p&gt;요새 개발용으로 사용할 피씨를 새로 세팅하고 있다. 
+개발환경을 배포환경과 최대한 비슷하게 세팅하기 위해 프로그램이 실제로 동작하는 원격서버와 IDE를 실행하는 개발서버를 나누려고 노력중이다.&lt;/p&gt;
+
+&lt;p&gt;vscode에서는 remote-ssh 로 원격서버의 코드를 편집할 수 있고 docker extension을 설치하면 컨테이너 내부의 코드를 편집할 수도 있다. 
+그렇다면 원격서버의 컨테이너에도 접근할 수 있지 않을까?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Remote Development 확장을 설치한다(필요한 확장들이 줄줄이 설치됨).&lt;/li&gt;
+  &lt;li&gt;remote ssh 로 원격서버에 접속하면 remote explorer에서 원격서버에 attach된 컨테이너들을 확인할 수 있다.&lt;/li&gt;
+  &lt;li&gt;원하는 컨테이너에 접속하면 끝.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;컨테이너 목록에는 나오는데 아래 메시지가 나오면서 연결이 안되는 현상이 발생했는데 vscode를 최신버전으로 업데이트 하니까 해결되었다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cannot attach to the container with name it no longer exists
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;참고한 사이트: &lt;br /&gt;
+https://code.visualstudio.com/docs/remote/containers&lt;/p&gt;
+</description>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2022-04/vscode-remote-d-host-container</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-04/vscode-remote-d-host-container</guid>
+        
+        
+        <category>log</category>
+        
+      </item>
+    
+      <item>
+        <title>pip ssl 에러 해결</title>
+        <description>&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1045)'))'   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;pip install 을 실행했는데 위와 같은 에러가 발생했다. 알아보니 회사 컴퓨터나 사내망 같은 환경에서 작업할때 나타나는 현상이라고 한다. 사내망을 이용하면 pypl 같이 파이썬 패키지를 제공하는 사이트를 신뢰할 수 없는 사이트로 인식해서 발생하는 에러 같다.&lt;/p&gt;
+&lt;h2 id=&quot;해결방법&quot;&gt;해결방법&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install matplotlib&lt;/code&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;pip install&lt;/code&gt; 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;--trusted-host&lt;/code&gt; 옵션으로 파이썬 패키지 서버 주소를 추가하면 문제는 해결된다. 하지만 매번 저 옵션을 직접 타이핑 하기에는 너무 길다.&lt;/p&gt;
+&lt;h2 id=&quot;더-편한-방법&quot;&gt;더 편한 방법&lt;/h2&gt;
+&lt;p&gt;우분투에서 alias를 사용하면 자주 사용하는 명령어를 단축키처럼 짧은 문자열로 실행할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ alias
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;위 커맨드를 실행하면 현재 등록된 단축명령어 목록을 확인할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ alias pip='pip --trusted-host pypi.org --trusted-host files.pythonhosted.org'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이렇게 등록하면 긴 옵션을 매번 타이핑하지 않아도 된다. 위처럼 설정한 명령어는 재부팅하면 리셋되기 때문에 &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; 파일 마지막에 위 명령을 추가해서 부팅시 단축문자열이 등록되도록 설정해두었다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2022-04/remote-development</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-04/remote-development</guid>
+        
+        
+        <category>log</category>
+        
+      </item>
+    
+      <item>
+        <title>Docker 컨테이너에서 호스트의 파일에 접근하기</title>
+        <description>&lt;p&gt;도커에서 volumes을 사용하면 호스트의 파일에 접근할 수 있다. 데이터가 모두 컨테이너 내부에 존재한다면 이미지 용량이 어마어마해 질 수 있다.
+그래서 용량이 큰 데이터들은 모두 호스트에 두고 컨테이너 내부 프로그램이 필요할 때 호스트 파일에 접근할 수 있도록 구성했다.&lt;/p&gt;
+
+&lt;p&gt;도커에서는 이를 위한 기능을 &lt;code class=&quot;highlighter-rouge&quot;&gt;--mount&lt;/code&gt; 옵션으로 제공한다(&lt;code class=&quot;highlighter-rouge&quot;&gt;-v&lt;/code&gt; 옵션도 있는데 mount옵션이 더 직관적이어서 사용하기 편하다고 함.)
+도커에서는 volume 이라는 기능으로 마운트할 공간을 관리한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;볼륨-생성&quot;&gt;볼륨 생성&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume create my-vol
+# my-vol 이라는 볼륨이 생성됨
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;볼륨-목록-확인&quot;&gt;볼륨 목록 확인&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume ls
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;개별-볼륨-설정-확인&quot;&gt;개별 볼륨 설정 확인&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume inspect my-vol
+# &quot;Mountpoint&quot;가 컨테이너 내부에 연결할 경로를 의미함.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;컨테이너에-실행시-볼륨-연결하기&quot;&gt;컨테이너에 실행시 볼륨 연결하기&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run -it --mount source=my-vol,target=/app ubuntu:18.04
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;위 명령이 정상적으로 실행되려면 컨테이너 내부에 &lt;code class=&quot;highlighter-rouge&quot;&gt;/app&lt;/code&gt; 디렉토리가 존재해야 한다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker inspect &amp;lt;container-name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;위 명령을 실행하면 컨테이너 정보를 확인할 수 있는데 “Mounts” 에서 연결된 상태를 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;참고한 사이트: &lt;br /&gt;
+https://docs.docker.com/storage/volumes/#choose-the–v-or—mount-flag
+https://blog.naver.com/PostView.naver?blogId=alice_k106&amp;amp;logNo=220421203146&amp;amp;redirect=Dlog&amp;amp;widgetTypeCall=true&amp;amp;directAccess=false&lt;/p&gt;
+</description>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2022-04/docker-volume</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-04/docker-volume</guid>
+        
+        
+        <category>log</category>
+        
+      </item>
+    
+      <item>
+        <title>Rotation invariant features</title>
+        <description>&lt;p&gt;회전에 불변한 영상특징을 조사해 보았다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;feature 종류에는 local features, global features가 있다.&lt;/li&gt;
+  &lt;li&gt;회전 불변 특성을 갖기 위해서는 pose normalization 이 필요하다.(예를들어 sift는 dominant orientation을 찾아서 작업을 한다.)&lt;/li&gt;
+  &lt;li&gt;기존 hog feature는 완전한 회전불변 아님: 고정 좌표 시스템, 객체를 cell에 표현하는 방식의 샘플링은 rotation invariant 하지 않음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;자료를 찾아보다가 아래 개념에 대해 배우게 되었다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Polar histogram&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rotation invariant histogram&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;2d, 3d rotation에 대해 다룸.&lt;/li&gt;
+      &lt;li&gt;퓨리에변환을 사용해서 histogram을 생성한다.(polar and spherical coordinates 이용)&lt;/li&gt;
+      &lt;li&gt;learning 방식의 어려움 : 3d rotation은 회전축이 3개이므로(오일러회전) 샘플링할 데이터가 너무 많아진다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;퓨리에분석으로 회전불변 특징을 생성한 논문도 있었다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;퓨리에분석은 이미지 스펙트럼의 주파수영역을 다룰때 사용된다.&lt;/li&gt;
+  &lt;li&gt;퓨리에분석으로 만든 회전불변 descriptor는 더 나은 성능을 보인다.&lt;/li&gt;
+  &lt;li&gt;퓨리에 기반 회전불변성을 생성하기 위해서: 3D HOGfeature에 spherical tensor algebra를 적용한다.&lt;/li&gt;
+  &lt;li&gt;나중에 찾아볼 키워드 : spherical harmonics&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;나는 shape context에 관한 피쳐를 구현했다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;shape context는 컨투어 픽셀의 상대적인 위치 분포를 히스토그램으로 표현한다.&lt;/li&gt;
+  &lt;li&gt;basic idea : n개의 포인트를 컨투어에서 뽑는다. 각 포인트 파이마다 나머지 n-1개의 상대 좌표히스토그램.
+히스토그램 bin은 log-polar 공간에 표현한다.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;shape context에 회전불변을 부여하기 위한 방법 : 각 피쳐포인트의 normal vector에 대한 상대각도를 측정한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;폴라 히스토그램 비교
+    &lt;ul&gt;
+      &lt;li&gt;일반적인 비교 method : Kolmogorov-Smirnov test , chi-Square distance&lt;/li&gt;
+      &lt;li&gt;Chi-Square distance : weighted average를 제공한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 07 Apr 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2022-04/rotation-invariant-features</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-04/rotation-invariant-features</guid>
+        
+        
+        <category>study</category>
+        
+      </item>
     
       <item>
         <title>Pandas parquet로 데이터 빨리 읽기</title>
@@ -37,11 +194,11 @@
 &lt;p&gt;판다스에서도 parquet에 대한 IO를 지원하고 있다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.DataFrame.to_parquet.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pandas.DataFrame.to_parquet&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.read_parquet.html#pandas.read_parquet&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pandas.read_parquet&lt;/code&gt;&lt;/a&gt;
-    &lt;h2 id=&quot;using-c&quot;&gt;Using C++&lt;/h2&gt;
-    &lt;p&gt;나는 데이터 생성 프로그램을 c++로 작성하고 있어서 c++로 parquet형식을 저장하는 방법에 대해서도 찾아보았다. Apache에서 parquet IO를 위해 제공하는 &lt;a href=&quot;https://github.com/apache/parquet-cpp&quot;&gt;parquet-cpp&lt;/a&gt;를 사용해보기로 했다.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.read_parquet.html#pandas.read_parquet&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pandas.read_parquet&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&quot;using-c&quot;&gt;Using C++&lt;/h2&gt;
+&lt;p&gt;나는 데이터 생성 프로그램을 c++로 작성하고 있어서 c++로 parquet형식을 저장하는 방법에 대해서도 찾아보았다. Apache에서 parquet IO를 위해 제공하는 &lt;a href=&quot;https://github.com/apache/parquet-cpp&quot;&gt;parquet-cpp&lt;/a&gt;를 사용해보기로 했다.&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 20 Mar 2022 00:00:00 +0900</pubDate>

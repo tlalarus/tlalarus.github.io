@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>My Practice</title>
+  <title>원격서버의 컨테이너에서 Vscode로 개발하기 | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/aboutme">
+  <link rel="canonical" href="http://localhost:4000/2022-04/vscode-remote-d-host-container">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -115,16 +115,55 @@
     
     <main class="main">
 
-    <section class="aboutme">
-    <div class="post_content">
-        <p>
-            If you don't need 'about' page, edit the _config.yml to comment out the code.
-            <br><br>
-            <img src="https://starry99.github.io/catbook/assets/img/cat1.jpg">
-        </p>
-    </div>
-</section>
+    <div class="post">
+  <div>
+    
+    <p class="post_title">원격서버의 컨테이너에서 Vscode로 개발하기</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">Apr 20, 2022</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/log">log</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p>요새 개발용으로 사용할 피씨를 새로 세팅하고 있다. 
+개발환경을 배포환경과 최대한 비슷하게 세팅하기 위해 프로그램이 실제로 동작하는 원격서버와 IDE를 실행하는 개발서버를 나누려고 노력중이다.</p>
 
+<p>vscode에서는 remote-ssh 로 원격서버의 코드를 편집할 수 있고 docker extension을 설치하면 컨테이너 내부의 코드를 편집할 수도 있다. 
+그렇다면 원격서버의 컨테이너에도 접근할 수 있지 않을까?</p>
+
+<ul>
+  <li>Remote Development 확장을 설치한다(필요한 확장들이 줄줄이 설치됨).</li>
+  <li>remote ssh 로 원격서버에 접속하면 remote explorer에서 원격서버에 attach된 컨테이너들을 확인할 수 있다.</li>
+  <li>원하는 컨테이너에 접속하면 끝.</li>
+</ul>
+
+<p>컨테이너 목록에는 나오는데 아래 메시지가 나오면서 연결이 안되는 현상이 발생했는데 vscode를 최신버전으로 업데이트 하니까 해결되었다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cannot attach to the container with name it no longer exists
+</code></pre></div></div>
+
+<p>참고한 사이트: <br />
+https://code.visualstudio.com/docs/remote/containers</p>
+
+  </div>
+
+
+  
+  <div class="post_comment">
+
+    
+
+  </div>
+  
+
+</div>
 
     </main>
 
