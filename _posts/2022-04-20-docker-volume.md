@@ -36,6 +36,12 @@ $ docker inspect <container-name>
 ```
 위 명령을 실행하면 컨테이너 정보를 확인할 수 있는데 "Mounts" 에서 연결된 상태를 확인할 수 있다.
 
+_2022-05-18 추가_
+```
+$ docker -volume="<host system directory>:<container directory>" [IMAGE_NAME]
+```
+host의 source 디렉토리를 지정하려면 위처럼.
+
 참고한 사이트:   
 https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag
 https://blog.naver.com/PostView.naver?blogId=alice_k106&logNo=220421203146&redirect=Dlog&widgetTypeCall=true&directAccess=false
