@@ -6,9 +6,34 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 18 May 2022 19:26:08 +0900</pubDate>
-    <lastBuildDate>Wed, 18 May 2022 19:26:08 +0900</lastBuildDate>
+    <pubDate>Fri, 20 May 2022 18:42:46 +0900</pubDate>
+    <lastBuildDate>Fri, 20 May 2022 18:42:46 +0900</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>주피터 노트북 _sqlite3 module 에러 해결</title>
+        <description>&lt;p&gt;도커에 파이썬(3.8.13)을 설치하고 주피터 노트북을 실행하던 도중 다음 에러를 만났다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ModuleNotFoundError: No module named '_sqlite3'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
+&lt;p&gt;우선 &lt;code class=&quot;highlighter-rouge&quot;&gt;libsqlite3-dev&lt;/code&gt; 패키지를 설치해야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo apt-get install libsqlite3-dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;애초에 파이썬을 빌드할 때 저 패키지가 있었어야 하는 것 같은데 빠진 것 같다. 그래서 &lt;code class=&quot;highlighter-rouge&quot;&gt;libsqlite3-dev&lt;/code&gt; 패키지를 설치하고 파이썬 소스를 다시 빌드해주었다.  &lt;br /&gt;
+파이썬 코드와 빌드 가이드 링크 &amp;gt; (https://github.com/python/cpython)&lt;/p&gt;
+</description>
+        <pubDate>Fri, 20 May 2022 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2022-05/jupyter-sqlite3-err</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-05/jupyter-sqlite3-err</guid>
+        
+        
+        <category>log</category>
+        
+      </item>
     
       <item>
         <title>원격서버의 컨테이너에서 Vscode로 개발하기</title>

@@ -4,7 +4,7 @@
 
 
 <head>
-  <title>시간복잡도 계산하기 | My Practice</title>
+  <title>주피터 노트북 _sqlite3 module 에러 해결 | My Practice</title>
   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2021-04/time-complexity-calculation">
+  <link rel="canonical" href="http://localhost:4000/2022-05/jupyter-sqlite3-err">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -118,74 +118,34 @@
     <div class="post">
   <div>
     
-    <p class="post_title">시간복잡도 계산하기</p>
+    <p class="post_title">주피터 노트북 _sqlite3 module 에러 해결</p>
     
   </div>
   <div class="post_data">
     
-    <span class="post_date">Apr 20, 2021</span>
+    <span class="post_date">May 20, 2022</span>
     
     
     <span class="post_categories">
       &raquo; 
-      <a href="/categories/dev">dev</a>
+      <a href="/categories/log">log</a>
     </span>
     
   </div>
   <div class="post_content">
-    <p>최근에 매칭 알고리즘 코드를 짰는데 테스트해보니 수행시간이 너무 오래 걸려서 시간복잡도를 한번 계산해보았다.</p>
+    <p>도커에 파이썬(3.8.13)을 설치하고 주피터 노트북을 실행하던 도중 다음 에러를 만났다.</p>
 
-<p>pseudo code 는 아래와 같다.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n = t시점의 매칭점 개수
-m = t+1시점의 매칭점 개수
-
-for(k=3, k=Min(n,m)) // k는 Min(n,m) 까지 도달함.
-{
-    n_ = Permutation(n, k) // nPk 여기 시간복잡도는 일단 보류.
-    m_ = Permutation(m, k) // mPk
-
-    for(i=0, i=n_)
-    {
-        for(j=0, j=m_)
-        {
-            // matching1 함수는 k값에 영향을 받는다.
-            err1 = matching1(k) {k+k+k}; 
-
-            if(err1 &gt;= THRESH)
-                continue;
-            
-            // matching2 함수도 k값에 영향을 받는다.
-            err2 = matching2(k) {k+k+k};
-
-        }
-    }
-
-}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ModuleNotFoundError: No module named '_sqlite3'
 </code></pre></div></div>
 
-<p>첫번째 for 문의 시간복잡도를 n,m에 대해 나타내면 <code class="highlighter-rouge">Min(n,m)-3+1</code> 이다.
-n_, m_은 <code class="highlighter-rouge">n', m'</code> 을 의미하며 이를 n,m에 대해 나타내면
-<code class="highlighter-rouge">n'm' = P(n,k)P(m,k)</code>
-와 같다. 이는 <code class="highlighter-rouge">2k-2 </code> 차수를 가진다. <del>순열을 쓴거부터 이미 여기부터 망한것 같다ㅜㅠ</del></p>
+<h2 id="해결-방법">해결 방법</h2>
+<p>우선 <code class="highlighter-rouge">libsqlite3-dev</code> 패키지를 설치해야 한다.</p>
 
-<p><code class="highlighter-rouge">3 &lt;= k &lt;= Min(n,m)</code> 을 이용해서 <code class="highlighter-rouge">2k-2</code> 의 최대값을 구하려고 한다.
-<code class="highlighter-rouge">Min(n,m)</code> 은 어차피 n이나 m 둘중 하나의 값이므로 n이 항상 작다고 가정하고 <code class="highlighter-rouge">Min(n,m) = n</code> 으로 치환하면 2k-2 = 2n-2 이다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install libsqlite3-dev
+</code></pre></div></div>
 
-<p><code class="highlighter-rouge">match_node(), match_edge</code> 함수의 시간복잡도는 각 3k이고 if문을 고려해서 총 과정의 시간복잡도는 6k로 가정하고 6k=6n 으로 계산한다.</p>
-
-<p>첫번째 <code class="highlighter-rouge">for(k=3, k=Min(n,m))</code> 반복문 시간복잡도는 n,
-두번째 <code class="highlighter-rouge">for(i=0, i=n_) for(j=0, j=m_)</code>의 시간복잡도는 2n-2
-세번째 for문 안의 시간복잡도는 6n 이므로
-n * (2n-2) * 6n = 13n^3-13n^2 이다.
-Big O 로 표기하면 O(n^3) 이 된다. 최적화가 필요할 듯 싶다.</p>
-
-<hr />
-<p><strong>2021-04-30 변경사항 기록</strong></p>
-
-<p>알고리즘을 내용적으로 분석해보니 쓸데없이 Permutation을 사용하고 있었다. 위 코드에서 n_을 Permutation이 아닌 Combination으로 변경했다. <br />
-속도가 많이 줄어든 것을 확인함. 1초 넘게 걸리던게 100ms 안에 다 끝나버렸다.</p>
-
+<p>애초에 파이썬을 빌드할 때 저 패키지가 있었어야 하는 것 같은데 빠진 것 같다. 그래서 <code class="highlighter-rouge">libsqlite3-dev</code> 패키지를 설치하고 파이썬 소스를 다시 빌드해주었다.  <br />
+파이썬 코드와 빌드 가이드 링크 &gt; (https://github.com/python/cpython)</p>
 
   </div>
 
