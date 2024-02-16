@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2022-05/jupyter-sqlite3-err">
+  <link rel="canonical" href="http://0.0.0.0:4000/2022-05/jupyter-sqlite3-err">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -54,7 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (11)</a>
+            (13)</a>
         </li>
       </ul>
       
@@ -94,7 +94,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (11)</a>
+      <a href="/categories/dev" id="aa">dev (13)</a>
     </li>
     
     
@@ -135,16 +135,16 @@
   <div class="post_content">
     <p>도커에 파이썬(3.8.13)을 설치하고 주피터 노트북을 실행하던 도중 다음 에러를 만났다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ModuleNotFoundError: No module named '_sqlite3'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ModuleNotFoundError: No module named '_sqlite3'
 </code></pre></div></div>
 
 <h2 id="해결-방법">해결 방법</h2>
-<p>우선 <code class="highlighter-rouge">libsqlite3-dev</code> 패키지를 설치해야 한다.</p>
+<p>우선 <code class="language-plaintext highlighter-rouge">libsqlite3-dev</code> 패키지를 설치해야 한다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install libsqlite3-dev
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install libsqlite3-dev
 </code></pre></div></div>
 
-<p>애초에 파이썬을 빌드할 때 저 패키지가 있었어야 하는 것 같은데 빠진 것 같다. 그래서 <code class="highlighter-rouge">libsqlite3-dev</code> 패키지를 설치하고 파이썬 소스를 다시 빌드해주었다.  <br />
+<p>애초에 파이썬을 빌드할 때 저 패키지가 있었어야 하는 것 같은데 빠진 것 같다. 그래서 <code class="language-plaintext highlighter-rouge">libsqlite3-dev</code> 패키지를 설치하고 파이썬 소스를 다시 빌드해주었다.  <br />
 파이썬 코드와 빌드 가이드 링크 &gt; (https://github.com/python/cpython)</p>
 
   </div>
@@ -166,7 +166,7 @@
 
   <footer class="footer">
   <div>
-    &copy; 2022 MinKyung Sim.
+    &copy; 2024 MinKyung Sim.
     Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>.
     Get this theme
     <a href="https://github.com/starry99/catbook" target="_blank">here</a>.

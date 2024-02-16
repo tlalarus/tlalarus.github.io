@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2021-04/time-complexity-calculation">
+  <link rel="canonical" href="http://0.0.0.0:4000/2021-04/time-complexity-calculation">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -54,7 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (11)</a>
+            (13)</a>
         </li>
       </ul>
       
@@ -94,7 +94,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (11)</a>
+      <a href="/categories/dev" id="aa">dev (13)</a>
     </li>
     
     
@@ -137,7 +137,7 @@
 
 <p>pseudo code 는 아래와 같다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n = t시점의 매칭점 개수
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n = t시점의 매칭점 개수
 m = t+1시점의 매칭점 개수
 
 for(k=3, k=Min(n,m)) // k는 Min(n,m) 까지 도달함.
@@ -164,18 +164,18 @@ for(k=3, k=Min(n,m)) // k는 Min(n,m) 까지 도달함.
 }
 </code></pre></div></div>
 
-<p>첫번째 for 문의 시간복잡도를 n,m에 대해 나타내면 <code class="highlighter-rouge">Min(n,m)-3+1</code> 이다.
-n_, m_은 <code class="highlighter-rouge">n', m'</code> 을 의미하며 이를 n,m에 대해 나타내면
-<code class="highlighter-rouge">n'm' = P(n,k)P(m,k)</code>
-와 같다. 이는 <code class="highlighter-rouge">2k-2 </code> 차수를 가진다. <del>순열을 쓴거부터 이미 여기부터 망한것 같다ㅜㅠ</del></p>
+<p>첫번째 for 문의 시간복잡도를 n,m에 대해 나타내면 <code class="language-plaintext highlighter-rouge">Min(n,m)-3+1</code> 이다.
+n_, m_은 <code class="language-plaintext highlighter-rouge">n', m'</code> 을 의미하며 이를 n,m에 대해 나타내면
+<code class="language-plaintext highlighter-rouge">n'm' = P(n,k)P(m,k)</code>
+와 같다. 이는 <code class="language-plaintext highlighter-rouge">2k-2 </code> 차수를 가진다. <del>순열을 쓴거부터 이미 여기부터 망한것 같다ㅜㅠ</del></p>
 
-<p><code class="highlighter-rouge">3 &lt;= k &lt;= Min(n,m)</code> 을 이용해서 <code class="highlighter-rouge">2k-2</code> 의 최대값을 구하려고 한다.
-<code class="highlighter-rouge">Min(n,m)</code> 은 어차피 n이나 m 둘중 하나의 값이므로 n이 항상 작다고 가정하고 <code class="highlighter-rouge">Min(n,m) = n</code> 으로 치환하면 2k-2 = 2n-2 이다.</p>
+<p><code class="language-plaintext highlighter-rouge">3 &lt;= k &lt;= Min(n,m)</code> 을 이용해서 <code class="language-plaintext highlighter-rouge">2k-2</code> 의 최대값을 구하려고 한다.
+<code class="language-plaintext highlighter-rouge">Min(n,m)</code> 은 어차피 n이나 m 둘중 하나의 값이므로 n이 항상 작다고 가정하고 <code class="language-plaintext highlighter-rouge">Min(n,m) = n</code> 으로 치환하면 2k-2 = 2n-2 이다.</p>
 
-<p><code class="highlighter-rouge">match_node(), match_edge</code> 함수의 시간복잡도는 각 3k이고 if문을 고려해서 총 과정의 시간복잡도는 6k로 가정하고 6k=6n 으로 계산한다.</p>
+<p><code class="language-plaintext highlighter-rouge">match_node(), match_edge</code> 함수의 시간복잡도는 각 3k이고 if문을 고려해서 총 과정의 시간복잡도는 6k로 가정하고 6k=6n 으로 계산한다.</p>
 
-<p>첫번째 <code class="highlighter-rouge">for(k=3, k=Min(n,m))</code> 반복문 시간복잡도는 n,
-두번째 <code class="highlighter-rouge">for(i=0, i=n_) for(j=0, j=m_)</code>의 시간복잡도는 2n-2
+<p>첫번째 <code class="language-plaintext highlighter-rouge">for(k=3, k=Min(n,m))</code> 반복문 시간복잡도는 n,
+두번째 <code class="language-plaintext highlighter-rouge">for(i=0, i=n_) for(j=0, j=m_)</code>의 시간복잡도는 2n-2
 세번째 for문 안의 시간복잡도는 6n 이므로
 n * (2n-2) * 6n = 13n^3-13n^2 이다.
 Big O 로 표기하면 O(n^3) 이 된다. 최적화가 필요할 듯 싶다.</p>
@@ -206,7 +206,7 @@ Big O 로 표기하면 O(n^3) 이 된다. 최적화가 필요할 듯 싶다.</p>
 
   <footer class="footer">
   <div>
-    &copy; 2022 MinKyung Sim.
+    &copy; 2024 MinKyung Sim.
     Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>.
     Get this theme
     <a href="https://github.com/starry99/catbook" target="_blank">here</a>.

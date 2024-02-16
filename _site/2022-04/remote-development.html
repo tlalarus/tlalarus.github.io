@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2022-04/remote-development">
+  <link rel="canonical" href="http://0.0.0.0:4000/2022-04/remote-development">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -54,7 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (11)</a>
+            (13)</a>
         </li>
       </ul>
       
@@ -94,7 +94,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (11)</a>
+      <a href="/categories/dev" id="aa">dev (13)</a>
     </li>
     
     
@@ -133,21 +133,21 @@
     
   </div>
   <div class="post_content">
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1045)'))'   
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1045)'))'   
 </code></pre></div></div>
 <p>pip install 을 실행했는데 위와 같은 에러가 발생했다. 알아보니 회사 컴퓨터나 사내망 같은 환경에서 작업할때 나타나는 현상이라고 한다. 사내망을 이용하면 pypl 같이 파이썬 패키지를 제공하는 사이트를 신뢰할 수 없는 사이트로 인식해서 발생하는 에러 같다.</p>
 <h2 id="해결방법">해결방법</h2>
-<p><code class="highlighter-rouge">pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install matplotlib</code><br />
-<code class="highlighter-rouge">pip install</code> 의 <code class="highlighter-rouge">--trusted-host</code> 옵션으로 파이썬 패키지 서버 주소를 추가하면 문제는 해결된다. 하지만 매번 저 옵션을 직접 타이핑 하기에는 너무 길다.</p>
+<p><code class="language-plaintext highlighter-rouge">pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install matplotlib</code><br />
+<code class="language-plaintext highlighter-rouge">pip install</code> 의 <code class="language-plaintext highlighter-rouge">--trusted-host</code> 옵션으로 파이썬 패키지 서버 주소를 추가하면 문제는 해결된다. 하지만 매번 저 옵션을 직접 타이핑 하기에는 너무 길다.</p>
 <h2 id="더-편한-방법">더 편한 방법</h2>
 <p>우분투에서 alias를 사용하면 자주 사용하는 명령어를 단축키처럼 짧은 문자열로 실행할 수 있다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ alias
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ alias
 </code></pre></div></div>
 <p>위 커맨드를 실행하면 현재 등록된 단축명령어 목록을 확인할 수 있다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ alias pip='pip --trusted-host pypi.org --trusted-host files.pythonhosted.org'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ alias pip='pip --trusted-host pypi.org --trusted-host files.pythonhosted.org'
 </code></pre></div></div>
-<p>이렇게 등록하면 긴 옵션을 매번 타이핑하지 않아도 된다. 위처럼 설정한 명령어는 재부팅하면 리셋되기 때문에 <code class="highlighter-rouge">.bashrc</code> 파일 마지막에 위 명령을 추가해서 부팅시 단축문자열이 등록되도록 설정해두었다.</p>
+<p>이렇게 등록하면 긴 옵션을 매번 타이핑하지 않아도 된다. 위처럼 설정한 명령어는 재부팅하면 리셋되기 때문에 <code class="language-plaintext highlighter-rouge">.bashrc</code> 파일 마지막에 위 명령을 추가해서 부팅시 단축문자열이 등록되도록 설정해두었다.</p>
 
   </div>
 
@@ -168,7 +168,7 @@
 
   <footer class="footer">
   <div>
-    &copy; 2022 MinKyung Sim.
+    &copy; 2024 MinKyung Sim.
     Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>.
     Get this theme
     <a href="https://github.com/starry99/catbook" target="_blank">here</a>.

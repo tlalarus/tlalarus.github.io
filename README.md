@@ -30,6 +30,12 @@ type: *name*
 ```
 Then the number of pages in the category will be displayed.
 
+## Docker
+```shell
+$ docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 -it jekyll/jekyll bundle exec jekyll serve
+```
+
+
 ## License
 
 [MIT License](https://opensource.org/licenses/MIT)

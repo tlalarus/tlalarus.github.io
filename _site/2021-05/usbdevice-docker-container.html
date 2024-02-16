@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2021-05/usbdevice-docker-container">
+  <link rel="canonical" href="http://0.0.0.0:4000/2021-05/usbdevice-docker-container">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -54,7 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (11)</a>
+            (13)</a>
         </li>
       </ul>
       
@@ -94,7 +94,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (11)</a>
+      <a href="/categories/dev" id="aa">dev (13)</a>
     </li>
     
     
@@ -143,17 +143,17 @@
 
 <p>이제 막 docker를 공부하고 있어서 진행이 더디지만 Dockerfile에 카메라 제조사의 홈페이지로부터 SDK 패키지를 다운로드 받는 것 까지는 성공했습니다.
 SDK의 install 을 실행하니 설치 도중<br />
-<code class="highlighter-rouge">cp: cannot create regular file 'etc/udev/rules.d/': No such file or directory</code> 메세지가 나오면서 종료되었습니다.
+<code class="language-plaintext highlighter-rouge">cp: cannot create regular file 'etc/udev/rules.d/': No such file or directory</code> 메세지가 나오면서 종료되었습니다.
 젯슨 보드에 직접 설치하는건 잘 되는데… 컨테이너에서 usb 장치에 접근하기 위한 어떤 모듈이 존재하지 않는 상태가 원인인 것 같은 느낌이 듭니다.</p>
 
 <p>아래는 해결방법인 듯 한 참고 페이지 <br />
 https://forums.balena.io/t/docker-container-cannot-access-dynamically-plugged-usb-devices/4277 <br />
 https://www.losant.com/blog/how-to-access-serial-devices-in-docker</p>
 
-<p>아직 시도는 안해봤지만 <code class="highlighter-rouge">etc/udev/rules.d</code> 파일을 직접 생성해주는 방법인 것 같습니다. 시도해본 결과는 아래에 추가할 예정!</p>
+<p>아직 시도는 안해봤지만 <code class="language-plaintext highlighter-rouge">etc/udev/rules.d</code> 파일을 직접 생성해주는 방법인 것 같습니다. 시도해본 결과는 아래에 추가할 예정!</p>
 
 <p>05-12 추가 : udev 패키지를 설치해서 해결했습니다.
-<code class="highlighter-rouge">apt-get install udev</code></p>
+<code class="language-plaintext highlighter-rouge">apt-get install udev</code></p>
 
   </div>
 
@@ -174,7 +174,7 @@ https://www.losant.com/blog/how-to-access-serial-devices-in-docker</p>
 
   <footer class="footer">
   <div>
-    &copy; 2022 MinKyung Sim.
+    &copy; 2024 MinKyung Sim.
     Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>.
     Get this theme
     <a href="https://github.com/starry99/catbook" target="_blank">here</a>.

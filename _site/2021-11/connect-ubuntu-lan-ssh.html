@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2021-11/connect-ubuntu-lan-ssh">
+  <link rel="canonical" href="http://0.0.0.0:4000/2021-11/connect-ubuntu-lan-ssh">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -54,7 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (11)</a>
+            (13)</a>
         </li>
       </ul>
       
@@ -94,7 +94,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (11)</a>
+      <a href="/categories/dev" id="aa">dev (13)</a>
     </li>
     
     
@@ -145,38 +145,38 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
 </ul>
 
 <h2 id="prepare">Prepare</h2>
-<p>서버쪽 필요한 패키지: <code class="highlighter-rouge">ssh-server</code> <br />
-클라이언트쪽 필요한 패키지: <code class="highlighter-rouge">ssh-client</code> (ubuntu에는 기본적으로 설치됨)</p>
+<p>서버쪽 필요한 패키지: <code class="language-plaintext highlighter-rouge">ssh-server</code> <br />
+클라이언트쪽 필요한 패키지: <code class="language-plaintext highlighter-rouge">ssh-client</code> (ubuntu에는 기본적으로 설치됨)</p>
 <h2 id="ssh-접속설정">SSH 접속설정</h2>
 <p><strong>Server</strong> 에서 tcp 포트 22번을 허용해준다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw allow 22/tcp
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw allow 22/tcp
 </code></pre></div></div>
-<p><code class="highlighter-rouge">/etc/ssh/sshd_config</code> 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PermitRootLogin no
+<p><code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code> 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PermitRootLogin no
 </code></pre></div></div>
 <h2 id="ssh-접속">SSH 접속</h2>
 <p>먼저, 서버에서 ssh접속을 열어준다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd start
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd start
 </code></pre></div></div>
 <p>아래 명령어로 ssh서비스가 구동중인지 확인할 수 있다(Active 인지 확인).</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd status
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd status
 </code></pre></div></div>
-<p>서버에서 랜선이 연결된 인터페이스(<code class="highlighter-rouge">eth0</code>)의 ip(<code class="highlighter-rouge">inet6</code>)를 확인한다.</p>
+<p>서버에서 랜선이 연결된 인터페이스(<code class="language-plaintext highlighter-rouge">eth0</code>)의 ip(<code class="language-plaintext highlighter-rouge">inet6</code>)를 확인한다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ifconfig
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ifconfig
 </code></pre></div></div>
 <p>클라이언트에서 ssh 접속을 시도한다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh [USERNAME]@[IPADDRESS]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh [USERNAME]@[IPADDRESS]
 </code></pre></div></div>
 <h2 id="파일-동기화rsync">파일 동기화(rsync)</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -azvh source_dir destination_dir 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -azvh source_dir destination_dir 
 </code></pre></div></div>
 <ul>
   <li>-az : 압축한 데이터를 보낸다.(압축하지 않고 보낼시 권한정보가 보존되지 않을 수 있다.)</li>
   <li>-h : human-readable.</li>
   <li>-v : 자세한 정보를 출력한다.</li>
   <li>source_dir 에 slash가 붙으면 source_dir의 내용물만 전송되므로 주의할 것.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -azvh src_dir [USERNAME]@[IPADDRESS]:/home/[USERNAME]/
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -azvh src_dir [USERNAME]@[IPADDRESS]:/home/[USERNAME]/
 </code></pre></div>    </div>
   </li>
 </ul>
@@ -200,7 +200,7 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
 
   <footer class="footer">
   <div>
-    &copy; 2022 MinKyung Sim.
+    &copy; 2024 MinKyung Sim.
     Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>.
     Get this theme
     <a href="https://github.com/starry99/catbook" target="_blank">here</a>.

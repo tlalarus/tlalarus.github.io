@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/main.css" media="all">
-  <link rel="canonical" href="http://localhost:4000/2021-04/opencv-mat-format-type">
+  <link rel="canonical" href="http://0.0.0.0:4000/2021-04/opencv-mat-format-type">
   <link rel="alternate" type="application/rss+xml" title="My Practice"
     href="/feed.xml" />
 
@@ -54,7 +54,7 @@
       <ul class="nav_list">
         <li class="nav_item">
           <a href="/categories/dev" id="aa">dev
-            (11)</a>
+            (13)</a>
         </li>
       </ul>
       
@@ -94,7 +94,7 @@
     
 
     <li class="nav_item">
-      <a href="/categories/dev" id="aa">dev (11)</a>
+      <a href="/categories/dev" id="aa">dev (13)</a>
     </li>
     
     
@@ -152,16 +152,16 @@
 
 <h3 id="unsupported-format">unsupported format</h3>
 <p>cv::filter2d 함수에서 아래와 같은 예외가 발생했다.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terminate called after throwing an instance of 'cv::Exception'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terminate called after throwing an instance of 'cv::Exception'
   what():  OpenCV(3.4.6) /opt/opencv/opencv-3.4.6/modules/imgproc/src/filter.simd.hpp:3172: error: (-213:The function/feature is not implemented) Unsupported combination of source format (=4), and destination format (=4) in function 'getLinearFilter'
 </code></pre></div></div>
 
 <p>확인해보니 filter2d 함수는 CV_8U, CV_16U, CV_32F 자료형인 입력만 지원한다고 한다. <del>opencv 공식문서에서 확인한 내용은 아니고 구글링으로 확인한 카더라임</del></p>
 
 <h3 id="print-actual-mat-element">Print actual Mat element</h3>
-<p>코드를 짜다보면 내가 짠 코드가 맞는 것인지 결과 Mat을 통해 확인하고 싶을 때가 있다. 나는 직접 픽셀값을 출력해서 확인하는 편인데 <code class="highlighter-rouge">std::cout</code> 으로 출력하면 실제값과 다른 엉뚱한 숫자가 출력되는 것을 확인하였다.</p>
+<p>코드를 짜다보면 내가 짠 코드가 맞는 것인지 결과 Mat을 통해 확인하고 싶을 때가 있다. 나는 직접 픽셀값을 출력해서 확인하는 편인데 <code class="language-plaintext highlighter-rouge">std::cout</code> 으로 출력하면 실제값과 다른 엉뚱한 숫자가 출력되는 것을 확인하였다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>case CV_8U:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>case CV_8U:
 {
     printf("%*u ", 3, mat.at&lt;uchar&gt;(r, c));
     break;
@@ -194,7 +194,7 @@ case CV_32S:
 
   <footer class="footer">
   <div>
-    &copy; 2022 MinKyung Sim.
+    &copy; 2024 MinKyung Sim.
     Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>.
     Get this theme
     <a href="https://github.com/starry99/catbook" target="_blank">here</a>.

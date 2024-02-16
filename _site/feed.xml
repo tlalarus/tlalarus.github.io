@@ -4,31 +4,116 @@
     <title>My Practice</title>
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 </description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 20 May 2022 18:42:46 +0900</pubDate>
-    <lastBuildDate>Fri, 20 May 2022 18:42:46 +0900</lastBuildDate>
-    <generator>Jekyll v3.8.6</generator>
+    <link>http://0.0.0.0:4000/</link>
+    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 16 Feb 2024 05:02:29 -0600</pubDate>
+    <lastBuildDate>Fri, 16 Feb 2024 05:02:29 -0600</lastBuildDate>
+    <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>Camera Calibration Pattern</title>
+        <description>&lt;p&gt;Zhang 알고리즘 캘리브레이션을 구현하고 테스트하는데 필요한 간단한 checkerboard 이미지를 생성하는 방법 2가지를 알게되어 비교해보았다.&lt;/p&gt;
+
+&lt;h2 id=&quot;calibio-사이트&quot;&gt;Calib.io 사이트&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://calib.io/pages/camera-calibration-pattern-generator&quot;&gt;calib.io&lt;/a&gt; 에서는 간단한 체커보드 패턴 뿐만 아니라, ChArUco, Circles 등 다양한 패턴을 생성할 수 있고 pdf 다운이 제공된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;opencv&quot;&gt;Opencv&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.opencv.org/3.4/da/d0d/tutorial_camera_calibration_pattern.html&quot;&gt;Opencv Create calibration pattern&lt;/a&gt; 문서에서는 캘리브레이션 패턴을 생성하는 파이썬 파일을 제공한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;주의할-점&quot;&gt;주의할 점&lt;/h2&gt;
+&lt;p&gt;Calib.io 패턴 생성 row, column 값은 말 그대로 square 개수를 의미하고 Opencv 패턴 생성에서 row, column 값은 inner corner 개수를 의미한다. 아래 그림 왼쪽이 calib.io, 오른쪽이 opencv 이다.
+&lt;img src=&quot;../assets/img/posts/2024-01-25-calibration-board.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;캘리브레이션-체커보드-설정&quot;&gt;캘리브레이션 체커보드 설정&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;row, column 값이 짝수/홀수 또는 홀수/짝수 로 서로 다르게 설정해야 rotation invariant 한 패턴이 된다.&lt;/li&gt;
+  &lt;li&gt;보드 영상을 취득 했을때, 영상 대부분을 보드가 차지하게(경험상 절반 넘게) 보드 사이즈를 조절한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;참고&quot;&gt;참고&lt;/h2&gt;
+&lt;p&gt;https://calib.io/blogs/knowledge-base/calibration-patterns-explained
+https://docs.opencv.org/3.4/da/d0d/tutorial_camera_calibration_pattern.html&lt;/p&gt;
+</description>
+        <pubDate>Fri, 26 Jan 2024 00:00:00 -0600</pubDate>
+        <link>http://0.0.0.0:4000/2024-01/calibration-board</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2024-01/calibration-board</guid>
+        
+        
+        <category>dev</category>
+        
+      </item>
+    
+      <item>
+        <title>Camera Coordinate System</title>
+        <description>&lt;p&gt;캘리브레이션에서 일반적으로 다루는 좌표계에는 카메라 좌표계, 이미지 좌표계, 월드 좌표계가 있다. 캘리브레이션에서 camera pose는 중요한 정보인데, 카메라 좌표계와 월드 좌표계 사이의 관계를 통해서 camera pose를 구하는 방법을 공부하면서 정리해 보았다.&lt;/p&gt;
+
+&lt;!-- 좌표계 그림 --&gt;
+&lt;p&gt;&lt;img src=&quot;https://learnopencv.com/wp-content/uploads/2020/02/world-camera-image-coordinates.png,&quot; alt=&quot;&quot; title=&quot;좌표계&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;camera-pose&quot;&gt;Camera pose&lt;/h2&gt;
+&lt;p&gt;Extrinsic parameter 를 알고 있다면 월드좌표계 상의 카메라 위치와 각도를 계산할 수 있다. 어떤 임의의 3D 월드 좌표가 카메라 내부의 이미지 평면에 어떻게 변환되는지 나타낸 행렬이 Extrinc parameter 이기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;월드좌표와 카메라좌표 간에는 아래와 같은 관계가 성립된다.&lt;/p&gt;
+
+&lt;!-- 월드좌표 = 카메라좌표 * 변환행렬  --&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/posts/2024-01-26-camera-pose_01.png,&quot; alt=&quot;&quot; title=&quot;camera-world 변환&quot; /&gt;
+[Xc, Yc, Zc]T = R^-1 ([X, Y, Z]T - [X1, Y1, Z1]) (X1, Y1, Z1 은 월드좌표계 상의 카메라 원점의 위치)&lt;/p&gt;
+
+&lt;p&gt;카메라의 위치좌표는 카메라 원점의 월드좌표를 의미하며 이를 구하는 간단한 방법은 위 식을 적용하여 아래와 같이 계산할 수 있다.
+&lt;!-- 카메라 위치 구하는 식 --&gt;
+&lt;img src=&quot;../assets/img/posts/2024-01-26-camera-pose_02.png,&quot; alt=&quot;&quot; title=&quot;camera position&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;camera-angle&quot;&gt;Camera angle&lt;/h2&gt;
+&lt;p&gt;카메라 광학축을 기준으로 pan, tilt, roll은 다음과 같이 정의된다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Pan  : 카메라가 수평방향(좌우)로 회전된 각도. (yaw)&lt;/li&gt;
+  &lt;li&gt;Tilt : 카메라가 수직방향(상하)로 회전된 각도. (pitch)&lt;/li&gt;
+  &lt;li&gt;Roll : 카메라의 광학축을 기준으로 회전한 각도. (roll)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;아래처럼 pan, tilt, roll은 월드좌표계의 X, Y, Z 축의 회전과 관련이 있다. 사용자가 월드좌표계를 어떻게 설정하는지에 따라 pan, tilt, roll의 정의가 달라진다.
+&lt;!-- 카메라 팬틸트롤 정의하는 좌표계 그리기 --&gt;
+&lt;img src=&quot;../assets/img/posts/2024-01-26-camera-pose_03.png,&quot; alt=&quot;&quot; title=&quot;camera angle&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 경우, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pan&lt;/code&gt;은 &lt;strong&gt;월드X축&lt;/strong&gt; 기준 회전 각도, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tilt&lt;/code&gt; 는 &lt;strong&gt;월드Y축&lt;/strong&gt; 기준 회전 각도, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;roll&lt;/code&gt; 은 &lt;strong&gt;월드Z축&lt;/strong&gt; 기준 회전 각도로 정의 할 수 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;회전 변환 행렬 R은 각 축의 회전행렬의 곱으로 표현할 수 있다. Opencv에서는 회전변환행렬R에 평행이동변환행렬 T를 추가한 Projection Matrix에서 거꾸로 pan, tilt, roll을 분해하는 함수 &lt;a href=&quot;https://docs.opencv.org/3.4/d9/d0c/group__calib3d.html#gaaae5a7899faa1ffdf268cd9088940248&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cv::decomposeProjectionMatrix&lt;/code&gt;&lt;/a&gt; 를 제공한다. 이 함수는 Z,Y,X 축 순서대로 회전했다는 가정이 존재한다(통상적으로 Z,Y,X 순서를 따른다고 함).&lt;/p&gt;
+
+&lt;h2 id=&quot;참고&quot;&gt;참고&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://darkpgmr.tistory.com/122&lt;/li&gt;
+  &lt;li&gt;https://tkayyoo.tistory.com/19&lt;/li&gt;
+  &lt;li&gt;https://learnopencv.com/geometry-of-image-formation/&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 25 Jan 2024 00:00:00 -0600</pubDate>
+        <link>http://0.0.0.0:4000/2024-01/camera-pose</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2024-01/camera-pose</guid>
+        
+        
+        <category>dev</category>
+        
+      </item>
     
       <item>
         <title>주피터 노트북 _sqlite3 module 에러 해결</title>
         <description>&lt;p&gt;도커에 파이썬(3.8.13)을 설치하고 주피터 노트북을 실행하던 도중 다음 에러를 만났다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ModuleNotFoundError: No module named '_sqlite3'
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ModuleNotFoundError: No module named &apos;_sqlite3&apos;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
-&lt;p&gt;우선 &lt;code class=&quot;highlighter-rouge&quot;&gt;libsqlite3-dev&lt;/code&gt; 패키지를 설치해야 한다.&lt;/p&gt;
+&lt;p&gt;우선 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libsqlite3-dev&lt;/code&gt; 패키지를 설치해야 한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo apt-get install libsqlite3-dev
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo apt-get install libsqlite3-dev
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;애초에 파이썬을 빌드할 때 저 패키지가 있었어야 하는 것 같은데 빠진 것 같다. 그래서 &lt;code class=&quot;highlighter-rouge&quot;&gt;libsqlite3-dev&lt;/code&gt; 패키지를 설치하고 파이썬 소스를 다시 빌드해주었다.  &lt;br /&gt;
+&lt;p&gt;애초에 파이썬을 빌드할 때 저 패키지가 있었어야 하는 것 같은데 빠진 것 같다. 그래서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libsqlite3-dev&lt;/code&gt; 패키지를 설치하고 파이썬 소스를 다시 빌드해주었다.  &lt;br /&gt;
 파이썬 코드와 빌드 가이드 링크 &amp;gt; (https://github.com/python/cpython)&lt;/p&gt;
 </description>
-        <pubDate>Fri, 20 May 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2022-05/jupyter-sqlite3-err</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-05/jupyter-sqlite3-err</guid>
+        <pubDate>Fri, 20 May 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2022-05/jupyter-sqlite3-err</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2022-05/jupyter-sqlite3-err</guid>
         
         
         <category>log</category>
@@ -50,15 +135,15 @@
 &lt;/ul&gt;
 
 &lt;p&gt;컨테이너 목록에는 나오는데 아래 메시지가 나오면서 연결이 안되는 현상이 발생했는데 vscode를 최신버전으로 업데이트 하니까 해결되었다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cannot attach to the container with name it no longer exists
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cannot attach to the container with name it no longer exists
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;참고한 사이트: &lt;br /&gt;
 https://code.visualstudio.com/docs/remote/containers&lt;/p&gt;
 </description>
-        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2022-04/vscode-remote-d-host-container</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04/vscode-remote-d-host-container</guid>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2022-04/vscode-remote-d-host-container</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2022-04/vscode-remote-d-host-container</guid>
         
         
         <category>log</category>
@@ -67,25 +152,25 @@ https://code.visualstudio.com/docs/remote/containers&lt;/p&gt;
     
       <item>
         <title>pip ssl 에러 해결</title>
-        <description>&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1045)'))'   
+        <description>&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&apos;SSLError(SSLCertVerificationError(1, &apos;[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1045)&apos;))&apos;   
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;pip install 을 실행했는데 위와 같은 에러가 발생했다. 알아보니 회사 컴퓨터나 사내망 같은 환경에서 작업할때 나타나는 현상이라고 한다. 사내망을 이용하면 pypl 같이 파이썬 패키지를 제공하는 사이트를 신뢰할 수 없는 사이트로 인식해서 발생하는 에러 같다.&lt;/p&gt;
 &lt;h2 id=&quot;해결방법&quot;&gt;해결방법&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install matplotlib&lt;/code&gt;&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;pip install&lt;/code&gt; 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;--trusted-host&lt;/code&gt; 옵션으로 파이썬 패키지 서버 주소를 추가하면 문제는 해결된다. 하지만 매번 저 옵션을 직접 타이핑 하기에는 너무 길다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install matplotlib&lt;/code&gt;&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip install&lt;/code&gt; 의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--trusted-host&lt;/code&gt; 옵션으로 파이썬 패키지 서버 주소를 추가하면 문제는 해결된다. 하지만 매번 저 옵션을 직접 타이핑 하기에는 너무 길다.&lt;/p&gt;
 &lt;h2 id=&quot;더-편한-방법&quot;&gt;더 편한 방법&lt;/h2&gt;
 &lt;p&gt;우분투에서 alias를 사용하면 자주 사용하는 명령어를 단축키처럼 짧은 문자열로 실행할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ alias
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ alias
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;위 커맨드를 실행하면 현재 등록된 단축명령어 목록을 확인할 수 있다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ alias pip='pip --trusted-host pypi.org --trusted-host files.pythonhosted.org'
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ alias pip=&apos;pip --trusted-host pypi.org --trusted-host files.pythonhosted.org&apos;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;이렇게 등록하면 긴 옵션을 매번 타이핑하지 않아도 된다. 위처럼 설정한 명령어는 재부팅하면 리셋되기 때문에 &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; 파일 마지막에 위 명령을 추가해서 부팅시 단축문자열이 등록되도록 설정해두었다.&lt;/p&gt;
+&lt;p&gt;이렇게 등록하면 긴 옵션을 매번 타이핑하지 않아도 된다. 위처럼 설정한 명령어는 재부팅하면 리셋되기 때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; 파일 마지막에 위 명령을 추가해서 부팅시 단축문자열이 등록되도록 설정해두었다.&lt;/p&gt;
 </description>
-        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2022-04/remote-development</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04/remote-development</guid>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2022-04/remote-development</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2022-04/remote-development</guid>
         
         
         <category>log</category>
@@ -97,32 +182,32 @@ https://code.visualstudio.com/docs/remote/containers&lt;/p&gt;
         <description>&lt;p&gt;도커에서 volumes을 사용하면 호스트의 파일에 접근할 수 있다. 데이터가 모두 컨테이너 내부에 존재한다면 이미지 용량이 어마어마해 질 수 있다.
 그래서 용량이 큰 데이터들은 모두 호스트에 두고 컨테이너 내부 프로그램이 필요할 때 호스트 파일에 접근할 수 있도록 구성했다.&lt;/p&gt;
 
-&lt;p&gt;도커에서는 이를 위한 기능을 &lt;code class=&quot;highlighter-rouge&quot;&gt;--mount&lt;/code&gt; 옵션으로 제공한다(&lt;code class=&quot;highlighter-rouge&quot;&gt;-v&lt;/code&gt; 옵션도 있는데 mount옵션이 더 직관적이어서 사용하기 편하다고 함.)
+&lt;p&gt;도커에서는 이를 위한 기능을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mount&lt;/code&gt; 옵션으로 제공한다(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-v&lt;/code&gt; 옵션도 있는데 mount옵션이 더 직관적이어서 사용하기 편하다고 함.)
 도커에서는 volume 이라는 기능으로 마운트할 공간을 관리한다.&lt;/p&gt;
 
 &lt;h2 id=&quot;볼륨-생성&quot;&gt;볼륨 생성&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume create my-vol
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume create my-vol
 # my-vol 이라는 볼륨이 생성됨
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;볼륨-목록-확인&quot;&gt;볼륨 목록 확인&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume ls
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume ls
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h2 id=&quot;개별-볼륨-설정-확인&quot;&gt;개별 볼륨 설정 확인&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume inspect my-vol
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker volume inspect my-vol
 # &quot;Mountpoint&quot;가 컨테이너 내부에 연결할 경로를 의미함.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;컨테이너에-실행시-볼륨-연결하기&quot;&gt;컨테이너에 실행시 볼륨 연결하기&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run -it --mount source=my-vol,target=/app ubuntu:18.04
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run -it --mount source=my-vol,target=/app ubuntu:18.04
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;위 명령이 정상적으로 실행되려면 컨테이너 내부에 &lt;code class=&quot;highlighter-rouge&quot;&gt;/app&lt;/code&gt; 디렉토리가 존재해야 한다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker inspect &amp;lt;container-name&amp;gt;
+&lt;p&gt;위 명령이 정상적으로 실행되려면 컨테이너 내부에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/app&lt;/code&gt; 디렉토리가 존재해야 한다.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker inspect &amp;lt;container-name&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;위 명령을 실행하면 컨테이너 정보를 확인할 수 있는데 “Mounts” 에서 연결된 상태를 확인할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;2022-05-18 추가&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker -volume=&quot;&amp;lt;host system directory&amp;gt;:&amp;lt;container directory&amp;gt;&quot; [IMAGE_NAME]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker -volume=&quot;&amp;lt;host system directory&amp;gt;:&amp;lt;container directory&amp;gt;&quot; [IMAGE_NAME]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;host의 source 디렉토리를 지정하려면 위처럼.&lt;/p&gt;
 
@@ -130,9 +215,9 @@ https://code.visualstudio.com/docs/remote/containers&lt;/p&gt;
 https://docs.docker.com/storage/volumes/#choose-the–v-or—mount-flag
 https://blog.naver.com/PostView.naver?blogId=alice_k106&amp;amp;logNo=220421203146&amp;amp;redirect=Dlog&amp;amp;widgetTypeCall=true&amp;amp;directAccess=false&lt;/p&gt;
 </description>
-        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2022-04/docker-volume</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04/docker-volume</guid>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2022-04/docker-volume</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2022-04/docker-volume</guid>
         
         
         <category>log</category>
@@ -188,9 +273,9 @@ https://blog.naver.com/PostView.naver?blogId=alice_k106&amp;amp;logNo=2204212031
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Thu, 07 Apr 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2022-04/rotation-invariant-features</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04/rotation-invariant-features</guid>
+        <pubDate>Thu, 07 Apr 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2022-04/rotation-invariant-features</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2022-04/rotation-invariant-features</guid>
         
         
         <category>study</category>
@@ -199,19 +284,19 @@ https://blog.naver.com/PostView.naver?blogId=alice_k106&amp;amp;logNo=2204212031
     
       <item>
         <title>Pandas parquet로 데이터 빨리 읽기</title>
-        <description>&lt;p&gt;머신러닝에서 데이터를 다룰 때, 엑셀 호환성때문에 &lt;code class=&quot;highlighter-rouge&quot;&gt;.csv&lt;/code&gt;를 많이 사용하고 있다. 약 3GB 크기의 csv 파일을 pandas로 불러오는데 &lt;code class=&quot;highlighter-rouge&quot;&gt;pd.read_csv()&lt;/code&gt; 수행 중 실행이 종료되는 문제가 발생했다.&lt;/p&gt;
+        <description>&lt;p&gt;머신러닝에서 데이터를 다룰 때, 엑셀 호환성때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.csv&lt;/code&gt;를 많이 사용하고 있다. 약 3GB 크기의 csv 파일을 pandas로 불러오는데 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.read_csv()&lt;/code&gt; 수행 중 실행이 종료되는 문제가 발생했다.&lt;/p&gt;
 
 &lt;h1 id=&quot;read_csv-default로--실행&quot;&gt;read_csv() default로  실행&lt;/h1&gt;
-&lt;p&gt;일반적으로 데이터 column마다 다른 자료형을 사용한다. 별도의 옵션을 주지 않는 한 Pandas &lt;code class=&quot;highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;는 데이터 column의 자료형을 추론하게 된다. 이 추론 과정은 생각보다 오래 걸린다(체감상 11column 1GB 데이터를 읽는데 1분걸리는듯..). 시간과 별개로 수행중 갑자기 종료되는 것이 문제라고 생각한다.&lt;/p&gt;
+&lt;p&gt;일반적으로 데이터 column마다 다른 자료형을 사용한다. 별도의 옵션을 주지 않는 한 Pandas &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;는 데이터 column의 자료형을 추론하게 된다. 이 추론 과정은 생각보다 오래 걸린다(체감상 11column 1GB 데이터를 읽는데 1분걸리는듯..). 시간과 별개로 수행중 갑자기 종료되는 것이 문제라고 생각한다.&lt;/p&gt;
 
 &lt;p&gt;1GB보다 작은 데이터 로드시 정상적으로 동작하는 걸로 보아 데이터 용량이 클수록 RAM을 많이 사용하는 것과 관련된 문제로 파악된다. pandas read_csv 를 구글링 해보면 수행시간을 단축하기 위한 옵션 사용법에 관한 글을 많이 찾아볼 수 있다.&lt;/p&gt;
 
 &lt;h1 id=&quot;usecols-dtype-converters-옵션-지정&quot;&gt;usecols, dtype, converters 옵션 지정&lt;/h1&gt;
-&lt;p&gt;Pandas가 데이터형을 추론하는 시간을 줄이기 위해 &lt;a href=&quot;https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;&lt;/a&gt;의 옵션을 사용해보았다.&lt;/p&gt;
+&lt;p&gt;Pandas가 데이터형을 추론하는 시간을 줄이기 위해 &lt;a href=&quot;https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read_csv()&lt;/code&gt;&lt;/a&gt;의 옵션을 사용해보았다.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;usecols&lt;/code&gt; : 전체 column 중 특정 column만 로드할 수 있다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dtype&lt;/code&gt; : column의 데이터형을 직접 지정한다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;converters&lt;/code&gt; : 특정 column에 대해 지정한 함수를 사용해서 변환작업을 수행한다(이상치 처리시 사용하면 편리).&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usecols&lt;/code&gt; : 전체 column 중 특정 column만 로드할 수 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dtype&lt;/code&gt; : column의 데이터형을 직접 지정한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;converters&lt;/code&gt; : 특정 column에 대해 지정한 함수를 사용해서 변환작업을 수행한다(이상치 처리시 사용하면 편리).&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;사용해본 결과, warning 메세지는 줄어들었지만 여전히 종료되는 문제가 간헐적으로 발생했다.&lt;/p&gt;
@@ -219,21 +304,21 @@ https://blog.naver.com/PostView.naver?blogId=alice_k106&amp;amp;logNo=2204212031
 &lt;h1 id=&quot;parquet&quot;&gt;Parquet&lt;/h1&gt;
 &lt;p&gt;Parquet 형식은 &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%82%B4%ED%94%BC_(%EC%95%95%EC%B6%95)&quot;&gt;Snappy&lt;/a&gt;라는 압축 방식을 사용하는데 이 방식은 구글에서 개발한 대용량 처리에 적합한 압축방식이라고 한다. 압축률 보다는 속도에 초점을 맞춘 방식인 것 같다.&lt;/p&gt;
 &lt;h2 id=&quot;dependencies&quot;&gt;dependencies&lt;/h2&gt;
-&lt;p&gt;파이썬에서 parquet을 사용하기 위해서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;libsnappy-dev fastparquet pyarrow&lt;/code&gt; 패키지가 설치되어 있어야 한다.&lt;/p&gt;
+&lt;p&gt;파이썬에서 parquet을 사용하기 위해서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libsnappy-dev fastparquet pyarrow&lt;/code&gt; 패키지가 설치되어 있어야 한다.&lt;/p&gt;
 &lt;h2 id=&quot;사용법&quot;&gt;사용법&lt;/h2&gt;
 &lt;p&gt;판다스에서도 parquet에 대한 IO를 지원하고 있다.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.DataFrame.to_parquet.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pandas.DataFrame.to_parquet&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.read_parquet.html#pandas.read_parquet&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pandas.read_parquet&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.DataFrame.to_parquet.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.DataFrame.to_parquet&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pandas-docs.github.io/pandas-docs-travis/reference/api/pandas.read_parquet.html#pandas.read_parquet&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.read_parquet&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;using-c&quot;&gt;Using C++&lt;/h2&gt;
 &lt;p&gt;나는 데이터 생성 프로그램을 c++로 작성하고 있어서 c++로 parquet형식을 저장하는 방법에 대해서도 찾아보았다. Apache에서 parquet IO를 위해 제공하는 &lt;a href=&quot;https://github.com/apache/parquet-cpp&quot;&gt;parquet-cpp&lt;/a&gt;를 사용해보기로 했다.&lt;/p&gt;
 
 </description>
-        <pubDate>Sun, 20 Mar 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2022-03/pandas-read-csv</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03/pandas-read-csv</guid>
+        <pubDate>Sun, 20 Mar 2022 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2022-03/pandas-read-csv</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2022-03/pandas-read-csv</guid>
         
         
         <category>dev</category>
@@ -254,45 +339,45 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;prepare&quot;&gt;Prepare&lt;/h2&gt;
-&lt;p&gt;서버쪽 필요한 패키지: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-server&lt;/code&gt; &lt;br /&gt;
-클라이언트쪽 필요한 패키지: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-client&lt;/code&gt; (ubuntu에는 기본적으로 설치됨)&lt;/p&gt;
+&lt;p&gt;서버쪽 필요한 패키지: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh-server&lt;/code&gt; &lt;br /&gt;
+클라이언트쪽 필요한 패키지: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh-client&lt;/code&gt; (ubuntu에는 기본적으로 설치됨)&lt;/p&gt;
 &lt;h2 id=&quot;ssh-접속설정&quot;&gt;SSH 접속설정&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Server&lt;/strong&gt; 에서 tcp 포트 22번을 허용해준다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo ufw allow 22/tcp
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo ufw allow 22/tcp
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt; 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PermitRootLogin no
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt; 파일을 아래와 같이 수정해서 root계정에 직접 로그인하는 것을 차단한다.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PermitRootLogin no
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h2 id=&quot;ssh-접속&quot;&gt;SSH 접속&lt;/h2&gt;
 &lt;p&gt;먼저, 서버에서 ssh접속을 열어준다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd start
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd start
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;아래 명령어로 ssh서비스가 구동중인지 확인할 수 있다(Active 인지 확인).&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd status
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# service sshd status
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;서버에서 랜선이 연결된 인터페이스(&lt;code class=&quot;highlighter-rouge&quot;&gt;eth0&lt;/code&gt;)의 ip(&lt;code class=&quot;highlighter-rouge&quot;&gt;inet6&lt;/code&gt;)를 확인한다.&lt;/p&gt;
+&lt;p&gt;서버에서 랜선이 연결된 인터페이스(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eth0&lt;/code&gt;)의 ip(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inet6&lt;/code&gt;)를 확인한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ifconfig
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ifconfig
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;클라이언트에서 ssh 접속을 시도한다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh [USERNAME]@[IPADDRESS]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh [USERNAME]@[IPADDRESS]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h2 id=&quot;파일-동기화rsync&quot;&gt;파일 동기화(rsync)&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rsync -azvh source_dir destination_dir 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rsync -azvh source_dir destination_dir 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;-az : 압축한 데이터를 보낸다.(압축하지 않고 보낼시 권한정보가 보존되지 않을 수 있다.)&lt;/li&gt;
   &lt;li&gt;-h : human-readable.&lt;/li&gt;
   &lt;li&gt;-v : 자세한 정보를 출력한다.&lt;/li&gt;
   &lt;li&gt;source_dir 에 slash가 붙으면 source_dir의 내용물만 전송되므로 주의할 것.
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rsync -azvh src_dir [USERNAME]@[IPADDRESS]:/home/[USERNAME]/
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rsync -azvh src_dir [USERNAME]@[IPADDRESS]:/home/[USERNAME]/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Sun, 21 Nov 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-11/connect-ubuntu-lan-ssh</guid>
+        <pubDate>Sun, 21 Nov 2021 00:00:00 -0600</pubDate>
+        <link>http://0.0.0.0:4000/2021-11/connect-ubuntu-lan-ssh</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-11/connect-ubuntu-lan-ssh</guid>
         
         
         <category>dev</category>
@@ -302,14 +387,14 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
       <item>
         <title>coding cheatsheet</title>
         <description>&lt;ul&gt;
-  &lt;li&gt;포인터형 변수는 &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt; , 배열은 &lt;code class=&quot;highlighter-rouge&quot;&gt;new[]&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;delete[]&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;포인터형 변수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;new&lt;/code&gt; - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;delete&lt;/code&gt; , 배열은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;new[]&lt;/code&gt; - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;delete[]&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;동적할당 메모리는 Heap 영역에 할당된다.&lt;/li&gt;
-  &lt;li&gt;포인터를 재할당 할때는 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete&lt;/code&gt; 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt; 하기&lt;/li&gt;
+  &lt;li&gt;포인터를 재할당 할때는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;delete&lt;/code&gt; 후 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;new&lt;/code&gt; 하기&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Fri, 16 Jul 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-07/coding-guide</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-07/coding-guide</guid>
+        <pubDate>Fri, 16 Jul 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-07/coding-guide</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-07/coding-guide</guid>
         
         
         <category>dev</category>
@@ -333,9 +418,9 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
   어떤 함수가 호출되면 내가 등록한 함수가 콜백되는지 파악하기.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Tue, 01 Jun 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-06/callback</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-06/callback</guid>
+        <pubDate>Tue, 01 Jun 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-06/callback</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-06/callback</guid>
         
         
         <category>dev</category>
@@ -354,21 +439,21 @@ Jetson nano 보드에 배포할 프로그램을 개발하려고 합니다. 배�
 
 &lt;p&gt;이제 막 docker를 공부하고 있어서 진행이 더디지만 Dockerfile에 카메라 제조사의 홈페이지로부터 SDK 패키지를 다운로드 받는 것 까지는 성공했습니다.
 SDK의 install 을 실행하니 설치 도중&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;cp: cannot create regular file 'etc/udev/rules.d/': No such file or directory&lt;/code&gt; 메세지가 나오면서 종료되었습니다.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cp: cannot create regular file &apos;etc/udev/rules.d/&apos;: No such file or directory&lt;/code&gt; 메세지가 나오면서 종료되었습니다.
 젯슨 보드에 직접 설치하는건 잘 되는데… 컨테이너에서 usb 장치에 접근하기 위한 어떤 모듈이 존재하지 않는 상태가 원인인 것 같은 느낌이 듭니다.&lt;/p&gt;
 
 &lt;p&gt;아래는 해결방법인 듯 한 참고 페이지 &lt;br /&gt;
 https://forums.balena.io/t/docker-container-cannot-access-dynamically-plugged-usb-devices/4277 &lt;br /&gt;
 https://www.losant.com/blog/how-to-access-serial-devices-in-docker&lt;/p&gt;
 
-&lt;p&gt;아직 시도는 안해봤지만 &lt;code class=&quot;highlighter-rouge&quot;&gt;etc/udev/rules.d&lt;/code&gt; 파일을 직접 생성해주는 방법인 것 같습니다. 시도해본 결과는 아래에 추가할 예정!&lt;/p&gt;
+&lt;p&gt;아직 시도는 안해봤지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;etc/udev/rules.d&lt;/code&gt; 파일을 직접 생성해주는 방법인 것 같습니다. 시도해본 결과는 아래에 추가할 예정!&lt;/p&gt;
 
 &lt;p&gt;05-12 추가 : udev 패키지를 설치해서 해결했습니다.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;apt-get install udev&lt;/code&gt;&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt-get install udev&lt;/code&gt;&lt;/p&gt;
 </description>
-        <pubDate>Tue, 11 May 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-05/usbdevice-docker-container</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-05/usbdevice-docker-container</guid>
+        <pubDate>Tue, 11 May 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-05/usbdevice-docker-container</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-05/usbdevice-docker-container</guid>
         
         
         <category>dev</category>
@@ -399,9 +484,9 @@ https://www.losant.com/blog/how-to-access-serial-devices-in-docker&lt;/p&gt;
 &lt;h1 id=&quot;공부할-내용&quot;&gt;공부할 내용&lt;/h1&gt;
 &lt;p&gt;https://taeyoung96.github.io/paper_review/BTS/&lt;/p&gt;
 </description>
-        <pubDate>Sat, 08 May 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-05/about-depth-estimation</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-05/about-depth-estimation</guid>
+        <pubDate>Sat, 08 May 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-05/about-depth-estimation</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-05/about-depth-estimation</guid>
         
         
         <category>dev</category>
@@ -414,7 +499,7 @@ https://www.losant.com/blog/how-to-access-serial-devices-in-docker&lt;/p&gt;
 
 &lt;p&gt;pseudo code 는 아래와 같다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;n = t시점의 매칭점 개수
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;n = t시점의 매칭점 개수
 m = t+1시점의 매칭점 개수
 
 for(k=3, k=Min(n,m)) // k는 Min(n,m) 까지 도달함.
@@ -441,18 +526,18 @@ for(k=3, k=Min(n,m)) // k는 Min(n,m) 까지 도달함.
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;첫번째 for 문의 시간복잡도를 n,m에 대해 나타내면 &lt;code class=&quot;highlighter-rouge&quot;&gt;Min(n,m)-3+1&lt;/code&gt; 이다.
-n_, m_은 &lt;code class=&quot;highlighter-rouge&quot;&gt;n', m'&lt;/code&gt; 을 의미하며 이를 n,m에 대해 나타내면
-&lt;code class=&quot;highlighter-rouge&quot;&gt;n'm' = P(n,k)P(m,k)&lt;/code&gt;
-와 같다. 이는 &lt;code class=&quot;highlighter-rouge&quot;&gt;2k-2 &lt;/code&gt; 차수를 가진다. &lt;del&gt;순열을 쓴거부터 이미 여기부터 망한것 같다ㅜㅠ&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;첫번째 for 문의 시간복잡도를 n,m에 대해 나타내면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Min(n,m)-3+1&lt;/code&gt; 이다.
+n_, m_은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&apos;, m&apos;&lt;/code&gt; 을 의미하며 이를 n,m에 대해 나타내면
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&apos;m&apos; = P(n,k)P(m,k)&lt;/code&gt;
+와 같다. 이는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2k-2 &lt;/code&gt; 차수를 가진다. &lt;del&gt;순열을 쓴거부터 이미 여기부터 망한것 같다ㅜㅠ&lt;/del&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;3 &amp;lt;= k &amp;lt;= Min(n,m)&lt;/code&gt; 을 이용해서 &lt;code class=&quot;highlighter-rouge&quot;&gt;2k-2&lt;/code&gt; 의 최대값을 구하려고 한다.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;Min(n,m)&lt;/code&gt; 은 어차피 n이나 m 둘중 하나의 값이므로 n이 항상 작다고 가정하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Min(n,m) = n&lt;/code&gt; 으로 치환하면 2k-2 = 2n-2 이다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3 &amp;lt;= k &amp;lt;= Min(n,m)&lt;/code&gt; 을 이용해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2k-2&lt;/code&gt; 의 최대값을 구하려고 한다.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Min(n,m)&lt;/code&gt; 은 어차피 n이나 m 둘중 하나의 값이므로 n이 항상 작다고 가정하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Min(n,m) = n&lt;/code&gt; 으로 치환하면 2k-2 = 2n-2 이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;match_node(), match_edge&lt;/code&gt; 함수의 시간복잡도는 각 3k이고 if문을 고려해서 총 과정의 시간복잡도는 6k로 가정하고 6k=6n 으로 계산한다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match_node(), match_edge&lt;/code&gt; 함수의 시간복잡도는 각 3k이고 if문을 고려해서 총 과정의 시간복잡도는 6k로 가정하고 6k=6n 으로 계산한다.&lt;/p&gt;
 
-&lt;p&gt;첫번째 &lt;code class=&quot;highlighter-rouge&quot;&gt;for(k=3, k=Min(n,m))&lt;/code&gt; 반복문 시간복잡도는 n,
-두번째 &lt;code class=&quot;highlighter-rouge&quot;&gt;for(i=0, i=n_) for(j=0, j=m_)&lt;/code&gt;의 시간복잡도는 2n-2
+&lt;p&gt;첫번째 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for(k=3, k=Min(n,m))&lt;/code&gt; 반복문 시간복잡도는 n,
+두번째 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for(i=0, i=n_) for(j=0, j=m_)&lt;/code&gt;의 시간복잡도는 2n-2
 세번째 for문 안의 시간복잡도는 6n 이므로
 n * (2n-2) * 6n = 13n^3-13n^2 이다.
 Big O 로 표기하면 O(n^3) 이 된다. 최적화가 필요할 듯 싶다.&lt;/p&gt;
@@ -464,9 +549,9 @@ Big O 로 표기하면 O(n^3) 이 된다. 최적화가 필요할 듯 싶다.&lt;
 속도가 많이 줄어든 것을 확인함. 1초 넘게 걸리던게 100ms 안에 다 끝나버렸다.&lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 20 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-04/time-complexity-calculation</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-04/time-complexity-calculation</guid>
+        <pubDate>Tue, 20 Apr 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-04/time-complexity-calculation</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-04/time-complexity-calculation</guid>
         
         
         <category>dev</category>
@@ -494,16 +579,16 @@ Big O 로 표기하면 O(n^3) 이 된다. 최적화가 필요할 듯 싶다.&lt;
 
 &lt;h3 id=&quot;unsupported-format&quot;&gt;unsupported format&lt;/h3&gt;
 &lt;p&gt;cv::filter2d 함수에서 아래와 같은 예외가 발생했다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terminate called after throwing an instance of 'cv::Exception'
-  what():  OpenCV(3.4.6) /opt/opencv/opencv-3.4.6/modules/imgproc/src/filter.simd.hpp:3172: error: (-213:The function/feature is not implemented) Unsupported combination of source format (=4), and destination format (=4) in function 'getLinearFilter'
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terminate called after throwing an instance of &apos;cv::Exception&apos;
+  what():  OpenCV(3.4.6) /opt/opencv/opencv-3.4.6/modules/imgproc/src/filter.simd.hpp:3172: error: (-213:The function/feature is not implemented) Unsupported combination of source format (=4), and destination format (=4) in function &apos;getLinearFilter&apos;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;확인해보니 filter2d 함수는 CV_8U, CV_16U, CV_32F 자료형인 입력만 지원한다고 한다. &lt;del&gt;opencv 공식문서에서 확인한 내용은 아니고 구글링으로 확인한 카더라임&lt;/del&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;print-actual-mat-element&quot;&gt;Print actual Mat element&lt;/h3&gt;
-&lt;p&gt;코드를 짜다보면 내가 짠 코드가 맞는 것인지 결과 Mat을 통해 확인하고 싶을 때가 있다. 나는 직접 픽셀값을 출력해서 확인하는 편인데 &lt;code class=&quot;highlighter-rouge&quot;&gt;std::cout&lt;/code&gt; 으로 출력하면 실제값과 다른 엉뚱한 숫자가 출력되는 것을 확인하였다.&lt;/p&gt;
+&lt;p&gt;코드를 짜다보면 내가 짠 코드가 맞는 것인지 결과 Mat을 통해 확인하고 싶을 때가 있다. 나는 직접 픽셀값을 출력해서 확인하는 편인데 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;std::cout&lt;/code&gt; 으로 출력하면 실제값과 다른 엉뚱한 숫자가 출력되는 것을 확인하였다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;case CV_8U:
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;case CV_8U:
 {
     printf(&quot;%*u &quot;, 3, mat.at&amp;lt;uchar&amp;gt;(r, c));
     break;
@@ -517,9 +602,9 @@ case CV_32S:
 &lt;p&gt;위처럼 포맷마다 적당한 출력형식을 정해주어야 하는 것 같다.&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 10 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-04/opencv-mat-format-type</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-04/opencv-mat-format-type</guid>
+        <pubDate>Sat, 10 Apr 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-04/opencv-mat-format-type</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-04/opencv-mat-format-type</guid>
         
         
         <category>dev</category>
@@ -545,20 +630,20 @@ imshow 함수가 동작은 하지만 이미지가 노트북에 보이지 않는 
 노트북에서는 이미지를 url기반으로 표시하기 때문에 cv::imshow함수의 인자를 이에 맞게 재정의해주어야 한다고 한다.
 먼저 세팅한 환경을 다시 살펴 보았다. 내가 깃허브에서 가져온 환경은 root기반으로 xeus-cling이 세팅이 되어야 하는데 나는 아나콘다 기반으로 설치를 했기 때문에 문제가 있는 듯 하다.&lt;/p&gt;
 
-&lt;p&gt;제공되는 install.py 내용은 &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/include/jupyter&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyter_opencv_include.h&lt;/code&gt;파일을 생성하고 이 파일에 cv::imshow를 재정의한 코드를 붙여넣기한다.
-그리고 파일명에 &lt;code class=&quot;highlighter-rouge&quot;&gt;libopencv&lt;/code&gt;가 포함된 파일을 스캔해서 cling 라이브러리 경로에 추가해준다.&lt;/p&gt;
+&lt;p&gt;제공되는 install.py 내용은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/local/include/jupyter&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jupyter_opencv_include.h&lt;/code&gt;파일을 생성하고 이 파일에 cv::imshow를 재정의한 코드를 붙여넣기한다.
+그리고 파일명에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libopencv&lt;/code&gt;가 포함된 파일을 스캔해서 cling 라이브러리 경로에 추가해준다.&lt;/p&gt;
 
 &lt;p&gt;내 상황을 정리하자면&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;주피터노트북이 실행되는것은 anaconda 의 가상환경 env에서 실행됨.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/lib  /usr/local/include &lt;/code&gt;에 존재하는 opencv 라이브러리를 사용해서 &lt;code class=&quot;highlighter-rouge&quot;&gt;imshow&lt;/code&gt;를 재정의한 &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyter_opencv_include.h&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/include/jupyter&lt;/code&gt;에 생성.&lt;/li&gt;
-  &lt;li&gt;주피터노트북에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyter_opencv_include.h&lt;/code&gt;를 읽어야 함.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/local/lib  /usr/local/include &lt;/code&gt;에 존재하는 opencv 라이브러리를 사용해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;imshow&lt;/code&gt;를 재정의한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jupyter_opencv_include.h&lt;/code&gt;를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/local/include/jupyter&lt;/code&gt;에 생성.&lt;/li&gt;
+  &lt;li&gt;주피터노트북에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jupyter_opencv_include.h&lt;/code&gt;를 읽어야 함.&lt;/li&gt;
 &lt;/ol&gt;
 
 </description>
-        <pubDate>Wed, 24 Mar 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-03/xeus-cling-load-lib</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-03/xeus-cling-load-lib</guid>
+        <pubDate>Wed, 24 Mar 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-03/xeus-cling-load-lib</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-03/xeus-cling-load-lib</guid>
         
         
         <category>dev</category>
@@ -578,9 +663,9 @@ keyword: image processing adaptive threshold texture pattern image&lt;/p&gt;
 
 &lt;p&gt;https://ieeexplore.ieee.org/abstract/document/5685565&lt;/p&gt;
 </description>
-        <pubDate>Tue, 23 Mar 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-03/Reference</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-03/Reference</guid>
+        <pubDate>Tue, 23 Mar 2021 00:00:00 -0500</pubDate>
+        <link>http://0.0.0.0:4000/2021-03/Reference</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-03/Reference</guid>
         
         
         <category>dev</category>
@@ -590,13 +675,13 @@ keyword: image processing adaptive threshold texture pattern image&lt;/p&gt;
       <item>
         <title>unique_ptr</title>
         <description>&lt;p&gt;아래와 같은 빌드에러 발생&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c++/7.5.0/bits/unique_ptr.h:821:30 error:invalid new-expression of abstract class type
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c++/7.5.0/bits/unique_ptr.h:821:30 error:invalid new-expression of abstract class type
 {return unique_ptr&amp;lt;_Tp&amp;gt;(new_Tp(std::forward&amp;lt;_Args&amp;gt;(__args)...));}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
-        <pubDate>Thu, 11 Mar 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021-03/buildErr</link>
-        <guid isPermaLink="true">http://localhost:4000/2021-03/buildErr</guid>
+        <pubDate>Thu, 11 Mar 2021 00:00:00 -0600</pubDate>
+        <link>http://0.0.0.0:4000/2021-03/buildErr</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2021-03/buildErr</guid>
         
         
         <category>dev</category>
